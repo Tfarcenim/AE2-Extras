@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "ae2extras:4m_crafting_storage"
+    }
+  },
+  "result": {
+    "item": "ae2extras:16m_crafting_storage"
+  }
+}
