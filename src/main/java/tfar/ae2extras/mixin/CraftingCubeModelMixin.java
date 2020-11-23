@@ -1,7 +1,7 @@
 package tfar.ae2extras.mixin;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
-import appeng.client.render.crafting.GrossAE2Hacks;
+import tfar.ae2extras.GrossAE2Hacks;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
