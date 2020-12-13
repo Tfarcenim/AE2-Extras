@@ -41,6 +41,8 @@ public class AE2Extras
     public static Block STORAGE4M;
     public static Block STORAGE16M;
 
+    public static Item
+
     public static final ItemGroup TAB = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
