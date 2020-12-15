@@ -12,10 +12,10 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -41,8 +41,6 @@ public class AE2Extras
     public static Block STORAGE4M;
     public static Block STORAGE16M;
 
-    public static Item
-
     public static final ItemGroup TAB = new ItemGroup(MODID) {
         @Override
         public ItemStack createIcon() {
@@ -50,11 +48,26 @@ public class AE2Extras
         }
     };
 
+    static Item.Properties props = new Item.Properties().group(TAB);
+    static Item.Properties props_nostack = new Item.Properties().group(TAB).maxStackSize(1);
+
+    public static Item CELL_COMPONENT_256K = new Item(props);
+    public static Item ITEM_CELL_256K = new AdvancedStorageCellItem(props_nostack,256,2.5,() -> CELL_COMPONENT_256K);
+    public static Item CELL_COMPONENT_1M = new Item(props);
+    public static Item ITEM_CELL_1M = new AdvancedStorageCellItem(props_nostack,1024,3,() -> CELL_COMPONENT_1M);
+    public static Item CELL_COMPONENT_4M = new Item(props);
+    public static Item ITEM_CELL_4M = new AdvancedStorageCellItem(props_nostack,4096,3.5,() -> CELL_COMPONENT_4M);
+    public static Item CELL_COMPONENT_16M = new Item(props);
+    public static Item ITEM_CELL_16M = new AdvancedStorageCellItem(props_nostack,16384,4,() -> CELL_COMPONENT_16M);
+
+
+
     public AE2Extras() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         // Register the setup method for modloading
         bus.addGenericListener(Block.class,this::blocks);
         bus.addGenericListener(Item.class,this::items);
+        bus.addGenericListener(IRecipeSerializer.class,this::recipes);
         bus.addListener(this::client);
     }
 
@@ -77,12 +90,27 @@ public class AE2Extras
 
     }
 
+    private void recipes(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+        IForgeRegistry<IRecipeSerializer<?>> r = event.getRegistry();
+        //todo make more dynamic
+        //register(event.getRegistry(),"disassemble",DisassembleRecipe.SERIALIZER);
+    }
+
     private void items(final RegistryEvent.Register<Item> event) {
-        Item.Properties props = new Item.Properties().group(TAB);
         register(event.getRegistry(),STORAGE256K.getRegistryName(),new BlockItem(STORAGE256K,props));
         register(event.getRegistry(), STORAGE1M.getRegistryName(),new BlockItem(STORAGE1M,props));
         register(event.getRegistry(), STORAGE4M.getRegistryName(),new BlockItem(STORAGE4M,props));
         register(event.getRegistry(), STORAGE16M.getRegistryName(),new BlockItem(STORAGE16M,props));
+
+        register(event.getRegistry(),"256k_cell_component",CELL_COMPONENT_256K);
+        register(event.getRegistry(), "1m_cell_component",CELL_COMPONENT_1M);
+        register(event.getRegistry(), "4m_cell_component",CELL_COMPONENT_4M);
+        register(event.getRegistry(), "16m_cell_component",CELL_COMPONENT_16M);
+
+        register(event.getRegistry(),"256k_storage_cell",ITEM_CELL_256K);
+        register(event.getRegistry(), "1m_storage_cell",ITEM_CELL_1M);
+        register(event.getRegistry(), "4m_storage_cell",ITEM_CELL_4M);
+        register(event.getRegistry(), "16m_storage_cell",ITEM_CELL_16M);
     }
 
     private static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, ResourceLocation name, T obj) {
