@@ -18,95 +18,100 @@ package tfar.ae2extras;
  * along with Applied Energistics 2.  If not, see <http://www.gnu.org/licenses/lgpl>.
  */
 
+import appeng.api.definitions.IDefinitions;
+import appeng.api.definitions.IItems;
 import appeng.api.storage.IMEInventory;
 import appeng.api.storage.channels.IItemStorageChannel;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import appeng.core.Api;
-import appeng.core.AppEng;
+import com.google.gson.JsonObject;
+import net.minecraft.block.Block;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-public final class DisassembleRecipe extends SpecialRecipe {
-    public static final IRecipeSerializer<appeng.recipes.game.DisassembleRecipe> SERIALIZER = new SpecialRecipeSerializer<>(
-            appeng.recipes.game.DisassembleRecipe::new);
-
-    static {
-        SERIALIZER.setRegistryName(new ResourceLocation(AppEng.MOD_ID, "disassemble"));
-    }
+public final class DisassembleRecipe extends ShapelessRecipe {
+    public static final IRecipeSerializer<ShapelessRecipe> SERIALIZER = new Serializer2();
 
     private static final ItemStack MISMATCHED_STACK = ItemStack.EMPTY;
 
-    public DisassembleRecipe(ResourceLocation id) {
-        super(id);
+    public DisassembleRecipe(ShapelessRecipe recipe) {
+        super(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(),recipe.getIngredients());
     }
+
 
     @Override
     public boolean matches(@Nonnull final CraftingInventory inv, @Nonnull final World w) {
-        return !this.getOutput(inv).isEmpty();
+        return super.matches(inv,w) && isCellEmpty(inv, w);
     }
 
-    @Nonnull
-    private ItemStack getOutput(final IInventory inventory) {
+    public boolean isCellEmpty(@Nonnull final CraftingInventory inv, @Nonnull final World w) {
         int itemCount = 0;
-        ItemStack output = MISMATCHED_STACK;
-
-        for (int slotIndex = 0; slotIndex < inventory.getSizeInventory(); slotIndex++) {
-            final ItemStack stackInSlot = inventory.getStackInSlot(slotIndex);
-            if (!stackInSlot.isEmpty()) {
+        for (int slotIndex = 0; slotIndex < inv.getSizeInventory(); slotIndex++) {
+            final ItemStack storageCell = inv.getStackInSlot(slotIndex);
+            if (!storageCell.isEmpty()) {
                 // needs a single input in the recipe
                 itemCount++;
                 if (itemCount > 1) {
-                    return MISMATCHED_STACK;
+                    return false;
                 }
 
                 // handle storage cells
-                Optional<ItemStack> maybeCellOutput = null;//this.getCellOutput(stackInSlot);
-                if (maybeCellOutput.isPresent()) {
-                    ItemStack storageCellStack = maybeCellOutput.get();
-                    // make sure the storage cell stackInSlot empty...
-                    final IMEInventory<IAEItemStack> cellInv = Api.instance().registries().cell().getCellInventory(
-                            stackInSlot, null, Api.instance().storage().getStorageChannel(IItemStorageChannel.class));
-                    if (cellInv != null) {
-                        final IItemList<IAEItemStack> list = cellInv.getAvailableItems(
-                                Api.instance().storage().getStorageChannel(IItemStorageChannel.class).createList());
-                        if (!list.isEmpty()) {
-                            return ItemStack.EMPTY;
-                        }
+                // make sure the storage cell storageCell empty...
+                final IMEInventory<IAEItemStack> cellInv = Api.instance().registries().cell().getCellInventory(
+                        storageCell, null, Api.instance().storage().getStorageChannel(IItemStorageChannel.class));
+                if (cellInv != null) {
+                    final IItemList<IAEItemStack> list = cellInv.getAvailableItems(
+                            Api.instance().storage().getStorageChannel(IItemStorageChannel.class).createList());
+                    if (!list.isEmpty()) {
+                        return false;
                     }
-
-                    output = storageCellStack;
                 }
             }
         }
+        return true;
+    }
 
-        return output;
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
+        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+
+        for(int i = 0; i < nonnulllist.size(); ++i) {
+            ItemStack item = inv.getStackInSlot(i);
+            if (Block.getBlockFromItem(item.getItem()) instanceof CraftingStorageBlockEx) {
+                IDefinitions definitions = Api.instance().definitions();
+                nonnulllist.set(i, definitions.blocks().craftingUnit().stack(1));
+            }
+        }
+        return nonnulllist;
     }
 
     @Nonnull
     @Override
-    public ItemStack getCraftingResult(@Nonnull final CraftingInventory inv) {
-        return this.getOutput(inv);
-    }
-
-    @Override
-    public boolean canFit(int i, int i1) {
-        return false;
-    }
-
-    @Nonnull
-    @Override
-    public IRecipeSerializer<appeng.recipes.game.DisassembleRecipe> getSerializer() {
+    public IRecipeSerializer<ShapelessRecipe> getSerializer() {
         return SERIALIZER;
     }
 
+    public static class Serializer2 extends Serializer {
+
+        @Override
+        public ShapelessRecipe read(ResourceLocation recipeId, JsonObject json) {
+            return new DisassembleRecipe(super.read(recipeId, json));
+        }
+
+        @Override
+        public ShapelessRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+            return new DisassembleRecipe(super.read(recipeId, buffer));
+        }
+    }
 }

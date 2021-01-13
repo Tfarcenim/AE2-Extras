@@ -91,9 +91,7 @@ public class AE2Extras
     }
 
     private void recipes(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-        IForgeRegistry<IRecipeSerializer<?>> r = event.getRegistry();
-        //todo make more dynamic
-        //register(event.getRegistry(),"disassemble",DisassembleRecipe.SERIALIZER);
+        register(event.getRegistry(),"disassemble",DisassembleRecipe.SERIALIZER);
     }
 
     private void items(final RegistryEvent.Register<Item> event) {

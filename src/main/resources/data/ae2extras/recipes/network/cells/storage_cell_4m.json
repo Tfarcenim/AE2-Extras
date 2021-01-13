@@ -6,7 +6,7 @@
   "pattern": ["aba", "bcb", "ddd"],
   "key": {
     "a": {
-      "item": "ae2extras:quartz_glass"
+      "item": "appliedenergistics2:quartz_glass"
     },
     "d": {
       "tag": "forge:ingots/iron"
