@@ -19,7 +19,6 @@ package tfar.ae2extras;
  */
 
 import appeng.api.definitions.IDefinitions;
-import appeng.api.definitions.IItems;
 import appeng.api.storage.IMEInventory;
 import appeng.api.storage.channels.IItemStorageChannel;
 import appeng.api.storage.data.IAEItemStack;
@@ -28,7 +27,6 @@ import appeng.core.Api;
 import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.ShapelessRecipe;
@@ -38,7 +36,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
 
 public final class DisassembleRecipe extends ShapelessRecipe {
     public static final IRecipeSerializer<ShapelessRecipe> SERIALIZER = new Serializer2();

@@ -1,6 +1,7 @@
 package tfar.ae2extras;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
+import appeng.block.crafting.CraftingStorageItem;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -60,6 +61,14 @@ public class AE2Extras
     public static Item CELL_COMPONENT_16M = new Item(props);
     public static Item ITEM_CELL_16M = new AdvancedStorageCellItem(props_nostack,16384,4,() -> CELL_COMPONENT_16M);
 
+    public static Item FLUID_CELL_COMPONENT_256K = new Item(props);
+    public static Item FLUID_CELL_256K = new AdvancedFluidStorageCellItem(props_nostack,256,2.5,() -> CELL_COMPONENT_256K);
+    public static Item FLUID_CELL_COMPONENT_1M = new Item(props);
+    public static Item FLUID_CELL_1M = new AdvancedFluidStorageCellItem(props_nostack,1024,3,() -> CELL_COMPONENT_1M);
+    public static Item FLUID_CELL_COMPONENT_4M = new Item(props);
+    public static Item FLUID_CELL_4M = new AdvancedFluidStorageCellItem(props_nostack,4096,3.5,() -> CELL_COMPONENT_4M);
+    public static Item FLUID_CELL_COMPONENT_16M = new Item(props);
+    public static Item FLUID_CELL_16M = new AdvancedFluidStorageCellItem(props_nostack,16384,4,() -> CELL_COMPONENT_16M);
 
 
     public AE2Extras() {
@@ -95,10 +104,10 @@ public class AE2Extras
     }
 
     private void items(final RegistryEvent.Register<Item> event) {
-        register(event.getRegistry(),STORAGE256K.getRegistryName(),new BlockItem(STORAGE256K,props));
-        register(event.getRegistry(), STORAGE1M.getRegistryName(),new BlockItem(STORAGE1M,props));
-        register(event.getRegistry(), STORAGE4M.getRegistryName(),new BlockItem(STORAGE4M,props));
-        register(event.getRegistry(), STORAGE16M.getRegistryName(),new BlockItem(STORAGE16M,props));
+        register(event.getRegistry(),STORAGE256K.getRegistryName(),new CraftingStorageItem(STORAGE256K,props));
+        register(event.getRegistry(), STORAGE1M.getRegistryName(),new CraftingStorageItem(STORAGE1M,props));
+        register(event.getRegistry(), STORAGE4M.getRegistryName(),new CraftingStorageItem(STORAGE4M,props));
+        register(event.getRegistry(), STORAGE16M.getRegistryName(),new CraftingStorageItem(STORAGE16M,props));
 
         register(event.getRegistry(),"256k_cell_component",CELL_COMPONENT_256K);
         register(event.getRegistry(), "1m_cell_component",CELL_COMPONENT_1M);
@@ -109,6 +118,16 @@ public class AE2Extras
         register(event.getRegistry(), "1m_storage_cell",ITEM_CELL_1M);
         register(event.getRegistry(), "4m_storage_cell",ITEM_CELL_4M);
         register(event.getRegistry(), "16m_storage_cell",ITEM_CELL_16M);
+
+        register(event.getRegistry(),"256k_fluid_cell_component",FLUID_CELL_COMPONENT_256K);
+        register(event.getRegistry(), "1m_fluid_cell_component",FLUID_CELL_COMPONENT_1M);
+        register(event.getRegistry(), "4m_fluid_cell_component",FLUID_CELL_COMPONENT_4M);
+        register(event.getRegistry(), "16m_fluid_cell_component",FLUID_CELL_COMPONENT_16M);
+
+        register(event.getRegistry(),"256k_fluid_storage_cell",FLUID_CELL_256K);
+        register(event.getRegistry(), "1m_fluid_storage_cell",FLUID_CELL_1M);
+        register(event.getRegistry(), "4m_fluid_storage_cell",FLUID_CELL_4M);
+        register(event.getRegistry(), "16m_fluid_storage_cell",FLUID_CELL_16M);
     }
 
     private static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, ResourceLocation name, T obj) {
