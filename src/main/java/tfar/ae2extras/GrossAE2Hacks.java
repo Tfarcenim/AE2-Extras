@@ -31,16 +31,7 @@ public class GrossAE2Hacks {
     }
 
     private static TextureAtlasSprite getLightTexture(Function<RenderMaterial, TextureAtlasSprite> textureGetter, AbstractCraftingUnitBlock.CraftingUnitType type) {
-
-        if (type == AE2Extras.STORAGE_256K)
-            return textureGetter.apply(STORAGE_256K_LIGHT);
-        if (type == AE2Extras.STORAGE_1M)
-            return textureGetter.apply(STORAGE_1M_LIGHT);
-        if (type == AE2Extras.STORAGE_4M)
-            return textureGetter.apply(STORAGE_4M_LIGHT);
-        if (type == AE2Extras.STORAGE_16M)
-            return textureGetter.apply(STORAGE_16M_LIGHT);
-        throw new RuntimeException("whut");
+        return textureGetter.apply(AE2Extras.TypeSwitch(type, STORAGE_256K_LIGHT, STORAGE_1M_LIGHT, STORAGE_4M_LIGHT, STORAGE_16M_LIGHT, new RuntimeException("whut")));
     }
 
     private static final RenderMaterial STORAGE_256K_LIGHT = texture("256k_storage_light");

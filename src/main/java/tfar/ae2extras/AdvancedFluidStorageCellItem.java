@@ -5,7 +5,6 @@ import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.IStorageChannel;
 import appeng.api.storage.channels.IFluidStorageChannel;
 import appeng.api.storage.data.IAEFluidStack;
-import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import appeng.core.Api;
 import appeng.items.storage.AbstractStorageCell;
@@ -66,10 +65,10 @@ public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidSt
             }
 
             PlayerInventory playerInventory = player.inventory;
-            IMEInventoryHandler inv = Api.instance().registries().cell().getCellInventory(stack, null, this.getChannel());
+            IMEInventoryHandler<IAEFluidStack> inv = Api.instance().registries().cell().getCellInventory(stack, null, this.getChannel());
             if (inv != null && playerInventory.getCurrentItem() == stack) {
                 InventoryAdaptor ia = InventoryAdaptor.getAdaptor(player);
-                IItemList<IAEItemStack> list = inv.getAvailableItems(this.getChannel().createList());
+                IItemList<IAEFluidStack> list = inv.getAvailableItems(this.getChannel().createList());
                 if (list.isEmpty() && ia != null) {
                     playerInventory.setInventorySlotContents(playerInventory.currentItem, ItemStack.EMPTY);
                     ItemStack extraB = ia.addItems(getCellComponent());

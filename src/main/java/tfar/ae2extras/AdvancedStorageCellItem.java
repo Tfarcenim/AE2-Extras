@@ -65,7 +65,7 @@ public class AdvancedStorageCellItem extends AbstractStorageCell<IAEItemStack> {
             }
 
             PlayerInventory playerInventory = player.inventory;
-            IMEInventoryHandler inv = Api.instance().registries().cell().getCellInventory(stack, null, this.getChannel());
+            IMEInventoryHandler<IAEItemStack> inv = Api.instance().registries().cell().getCellInventory(stack, null, this.getChannel());
             if (inv != null && playerInventory.getCurrentItem() == stack) {
                 InventoryAdaptor ia = InventoryAdaptor.getAdaptor(player);
                 IItemList<IAEItemStack> list = inv.getAvailableItems(this.getChannel().createList());

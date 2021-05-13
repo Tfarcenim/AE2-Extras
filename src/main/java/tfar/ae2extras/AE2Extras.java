@@ -150,4 +150,16 @@ public class AE2Extras
                 .hardnessAndResistance(2.2f, 11.f).harvestTool(ToolType.PICKAXE).harvestLevel(0)
                 .sound(SoundType.METAL);
     }
+
+    public static <T, E extends Throwable> T TypeSwitch(AbstractCraftingUnitBlock.CraftingUnitType type, T o1, T o2, T o3, T o4, E o5) throws E {
+        if (type == STORAGE_256K)
+            return o1;
+        if (type == STORAGE_1M)
+            return o2;
+        if (type == STORAGE_4M)
+            return o3;
+        if (type == STORAGE_16M)
+            return o4;
+        throw o5;
+    }
 }
