@@ -1,0 +1,27 @@
+{
+  "block.ae2extras.256k_crafting_storage": "256к Хранилище Создания",
+  "block.ae2extras.1m_crafting_storage": "1м Хранилище Создания",
+  "block.ae2extras.4m_crafting_storage": "4м Хранилище Создания",
+  "block.ae2extras.16m_crafting_storage": "16м Хранилище Создания",
+  "itemGroup.ae2extras" : "AE2 Extras",
+
+  "item.ae2extras.1m_cell_component": "1м МЭ Компонент Хранения",
+  "item.ae2extras.4m_cell_component": "4м МЭ Компонент Хранения",
+  "item.ae2extras.16m_cell_component": "16м МЭ Компонент Хранения",
+  "item.ae2extras.256k_cell_component": "256к МЭ Компонент Хранения",
+
+  "item.ae2extras.1m_storage_cell": "1м МЭ Ячейка Хранения",
+  "item.ae2extras.4m_storage_cell": "4м МЭ Ячейка Хранения",
+  "item.ae2extras.16m_storage_cell": "16м МЭ Ячейка Хранения",
+  "item.ae2extras.256k_storage_cell": "256к МЭ Ячейка Хранения",
+
+  "item.ae2extras.1m_fluid_cell_component": "1м МЭ Жидкостный Компонент Хранения",
+  "item.ae2extras.4m_fluid_cell_component": "4м МЭ Жидкостный Компонент Хранения",
+  "item.ae2extras.16m_fluid_cell_component": "16м МЭ Жидкостный Компонент Хранения",
+  "item.ae2extras.256k_fluid_cell_component": "256к МЭ Жидкостный Компонент Хранения",
+
+  "item.ae2extras.1m_fluid_storage_cell": "1м МЭ Жидкостная Ячейка Хранения",
+  "item.ae2extras.4m_fluid_storage_cell": "4м МЭ Жидкостная Ячейка Хранения",
+  "item.ae2extras.16m_fluid_storage_cell": "16м МЭ Жидкостная Ячейка Хранения",
+  "item.ae2extras.256k_fluid_storage_cell": "256к МЭ Жидкостная Ячейка Хранения"
+}
