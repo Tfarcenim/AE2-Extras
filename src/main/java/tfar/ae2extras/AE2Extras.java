@@ -62,13 +62,13 @@ public class AE2Extras
     public static Item ITEM_CELL_16M = new AdvancedStorageCellItem(props_nostack,16384,4,() -> CELL_COMPONENT_16M);
 
     public static Item FLUID_CELL_COMPONENT_256K = new Item(props);
-    public static Item FLUID_CELL_256K = new AdvancedFluidStorageCellItem(props_nostack,256,2.5,() -> CELL_COMPONENT_256K);
+    public static Item FLUID_CELL_256K = new AdvancedFluidStorageCellItem(props_nostack,256,2.5,() -> FLUID_CELL_COMPONENT_256K);
     public static Item FLUID_CELL_COMPONENT_1M = new Item(props);
-    public static Item FLUID_CELL_1M = new AdvancedFluidStorageCellItem(props_nostack,1024,3,() -> CELL_COMPONENT_1M);
+    public static Item FLUID_CELL_1M = new AdvancedFluidStorageCellItem(props_nostack,1024,3,() -> FLUID_CELL_COMPONENT_1M);
     public static Item FLUID_CELL_COMPONENT_4M = new Item(props);
-    public static Item FLUID_CELL_4M = new AdvancedFluidStorageCellItem(props_nostack,4096,3.5,() -> CELL_COMPONENT_4M);
+    public static Item FLUID_CELL_4M = new AdvancedFluidStorageCellItem(props_nostack,4096,3.5,() -> FLUID_CELL_COMPONENT_4M);
     public static Item FLUID_CELL_COMPONENT_16M = new Item(props);
-    public static Item FLUID_CELL_16M = new AdvancedFluidStorageCellItem(props_nostack,16384,4,() -> CELL_COMPONENT_16M);
+    public static Item FLUID_CELL_16M = new AdvancedFluidStorageCellItem(props_nostack,16384,4,() -> FLUID_CELL_COMPONENT_16M);
 
 
     public AE2Extras() {

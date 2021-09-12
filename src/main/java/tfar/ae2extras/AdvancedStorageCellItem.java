@@ -116,5 +116,4 @@ public class AdvancedStorageCellItem extends AbstractStorageCell<IAEItemStack> {
             }
         });
     }
-
 }
