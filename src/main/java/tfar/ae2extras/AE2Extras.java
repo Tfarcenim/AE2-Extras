@@ -151,7 +151,7 @@ public class AE2Extras
                 .sound(SoundType.METAL);
     }
 
-    public static <T, E extends Throwable> T TypeSwitch(AbstractCraftingUnitBlock.CraftingUnitType type, T o1, T o2, T o3, T o4, E o5) throws E {
+    public static <T, E extends Throwable> T typeSwitch(AbstractCraftingUnitBlock.CraftingUnitType type, T o1, T o2, T o3, T o4, E o5) throws E {
         if (type == STORAGE_256K)
             return o1;
         if (type == STORAGE_1M)

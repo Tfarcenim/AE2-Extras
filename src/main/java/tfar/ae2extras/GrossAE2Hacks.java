@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
-import tfar.ae2extras.AE2Extras;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +30,7 @@ public class GrossAE2Hacks {
     }
 
     private static TextureAtlasSprite getLightTexture(Function<RenderMaterial, TextureAtlasSprite> textureGetter, AbstractCraftingUnitBlock.CraftingUnitType type) {
-        return textureGetter.apply(AE2Extras.TypeSwitch(type, STORAGE_256K_LIGHT, STORAGE_1M_LIGHT, STORAGE_4M_LIGHT, STORAGE_16M_LIGHT, new RuntimeException("whut")));
+        return textureGetter.apply(AE2Extras.typeSwitch(type, STORAGE_256K_LIGHT, STORAGE_1M_LIGHT, STORAGE_4M_LIGHT, STORAGE_16M_LIGHT, new RuntimeException("whut")));
     }
 
     private static final RenderMaterial STORAGE_256K_LIGHT = texture("256k_storage_light");
