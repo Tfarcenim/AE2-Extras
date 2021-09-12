@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "ae2extras.refmap.json",
   "mixins": [
+    "BasicCellInventoryMixin",
     "CraftingStorageBlockEntityMixin",
     "CraftingUnitTypeMixin"
   ],

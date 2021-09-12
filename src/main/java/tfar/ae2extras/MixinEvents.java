@@ -13,7 +13,7 @@ public class MixinEvents {
         World world = te.getWorld();
         BlockPos pos = te.getPos();
         AbstractCraftingUnitBlock<?> unit = (AbstractCraftingUnitBlock<?>) world.getBlockState(pos).getBlock();
-        
+
         if (unit.type == AE2Extras.STORAGE_256K) {
             cir.setReturnValue(65536 * 4);
         } else if (unit.type == AE2Extras.STORAGE_1M) {
