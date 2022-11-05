@@ -48,7 +48,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                ae2extras {
                     source sourceSets.main
                 }
             }
@@ -64,7 +64,19 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                ae2extras {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            property 'mixin.env.disableRefMap', 'true'
+            workingDirectory project.file('run')
+            //property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'ae2extras', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
+            mods {
+                ae2extras {
                     source sourceSets.main
                 }
             }
@@ -83,6 +95,9 @@ repositories {
         name = "Modmaven"
         url = "https://modmaven.dev/"
     }
+}
+sourceSets {
+    main.resources.srcDirs += 'src/generated/resources'
 }
 
 dependencies {
@@ -121,11 +136,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "${modid}",
-                "Specification-Vendor"    : "examplemodsareus",
+                "Specification-Vendor"    : "ae2extrassareus",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Vendor"   : "ae2extrassareus",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

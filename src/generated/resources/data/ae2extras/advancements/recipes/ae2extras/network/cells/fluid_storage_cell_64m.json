@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ae2extras:network/cells/fluid_storage_cell_64m"
+    ]
+  },
+  "criteria": {
+    "has_cell_component_64m": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ae2extras:cell_component_64m"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ae2extras:network/cells/fluid_storage_cell_64m"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cell_component_64m",
+      "has_the_recipe"
+    ]
+  ]
+}

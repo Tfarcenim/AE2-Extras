@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aba",
+    "cdc",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:dusts/glowstone"
+    },
+    "b": {
+      "item": "ae2:calculation_processor"
+    },
+    "c": {
+      "item": "ae2extras:cell_component_16m"
+    },
+    "d": {
+      "item": "ae2:quartz_glass"
+    }
+  },
+  "result": {
+    "item": "ae2extras:cell_component_64m"
+  }
+}

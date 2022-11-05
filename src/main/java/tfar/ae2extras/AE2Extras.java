@@ -21,6 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import tfar.ae2extras.datagen.ModDatagen;
 import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.ModItems;
 
@@ -36,11 +37,11 @@ public class AE2Extras {
 
 
     public static Item createItemCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(noStack(), cellComponent, AEItems.ITEM_CELL_HOUSING, idleDrain, 1024 * megaBytes, 8 * 1024 * megaBytes, 63, AEKeyType.items());
+        return new BasicStorageCell(noStack(), cellComponent, AEItems.ITEM_CELL_HOUSING, idleDrain, KILO * megaBytes, 8 * KILO * megaBytes, 63, AEKeyType.items());
     }
 
     public static Item createFluidCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(noStack(), cellComponent, AEItems.FLUID_CELL_HOUSING, idleDrain, 1024 * megaBytes, 8 * 1024 * megaBytes, 63, AEKeyType.fluids());
+        return new BasicStorageCell(noStack(), cellComponent, AEItems.FLUID_CELL_HOUSING, idleDrain, KILO * megaBytes, 8 * KILO * megaBytes, 63, AEKeyType.fluids());
     }
 
     static Item.Properties noStack() {
@@ -54,6 +55,7 @@ public class AE2Extras {
         bus.addGenericListener(Block.class, this::blocks);
         bus.addGenericListener(Item.class, this::items);
         bus.addGenericListener(RecipeSerializer.class, this::recipes);
+        bus.addListener(ModDatagen::gather);
         //     bus.addListener(this::client);
     }
 
@@ -108,5 +110,9 @@ public class AE2Extras {
 
     private static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, String name, T obj) {
         return register(registry, new ResourceLocation(MODID, name), obj);
+    }
+
+    public static ResourceLocation makeId(String id) {
+        return new ResourceLocation(MODID, id);
     }
 }

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ae2extras:network/cells/item_storage_cell_1m_storage"
+    ]
+  },
+  "criteria": {
+    "has_cell_component_1m": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ae2extras:cell_component_1m"
+            ]
+          }
+        ]
+      }
+    },
+    "has_item_cell_housing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ae2:item_cell_housing"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ae2extras:network/cells/item_storage_cell_1m_storage"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cell_component_1m",
+      "has_item_cell_housing",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ae2extras:network/cells/item_storage_components_cell_1m_part"
+    ]
+  },
+  "criteria": {
+    "has_logic_processor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ae2:logic_processor"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ae2extras:network/cells/item_storage_components_cell_1m_part"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_logic_processor",
+      "has_the_recipe"
+    ]
+  ]
+}

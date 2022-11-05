@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ae2extras:cell_component_4m"
+    },
+    {
+      "item": "ae2:crafting_unit"
+    }
+  ],
+  "result": {
+    "item": "ae2extras:4m_crafting_storage"
+  }
+}
