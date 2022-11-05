@@ -61,9 +61,7 @@ public class AE2Extras {
         bus.addListener(ModDatagen::gather);
         bus.addListener(this::common);
         if (FMLEnvironment.dist.isClient()) {
-                 bus.addListener(AE2ExtrasClient::client);
-            InitAutoRotatingModelEx.init(bus);
-            bus.addListener(AE2ExtrasClient::models);
+            AE2ExtrasClient.reg(bus);
         }
     }
 
