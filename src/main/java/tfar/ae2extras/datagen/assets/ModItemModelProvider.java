@@ -43,7 +43,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0",
                 AE2Extras.makeId(background))
-                .texture("layer1", AppEng.makeId("item/storage_cell_led"));
+                .texture("layer1", AE2Extras.makeId("item/storage_cell_led"));//todo, this is a vanilla AE2 texture, use the original when possible
     }
 
     private ItemModelBuilder flatSingleLayer(Item item, String texture) {
