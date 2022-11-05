@@ -44,13 +44,13 @@ public class AE2Extras
 
     public static final ItemGroup TAB = new ItemGroup(MODID) {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return STORAGE16M.asItem().getDefaultInstance();
         }
     };
 
-    static Item.Properties props = new Item.Properties().group(TAB);
-    static Item.Properties props_nostack = new Item.Properties().group(TAB).maxStackSize(1);
+    static Item.Properties props = new Item.Properties().tab(TAB);
+    static Item.Properties props_nostack = new Item.Properties().tab(TAB).stacksTo(1);
 
     public static Item CELL_COMPONENT_256K = new Item(props);
     public static Item ITEM_CELL_256K = new AdvancedStorageCellItem(props_nostack,256,2.5,() -> CELL_COMPONENT_256K);
@@ -81,16 +81,16 @@ public class AE2Extras
     }
 
     private void client(FMLClientSetupEvent t) {
-        RenderTypeLookup.setRenderLayer(STORAGE256K, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(STORAGE1M, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(STORAGE4M, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(STORAGE16M, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(STORAGE256K, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(STORAGE1M, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(STORAGE4M, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(STORAGE16M, RenderType.cutout());
 
     }
 
     private void blocks(final RegistryEvent.Register<Block> event) {
 
-        AbstractBlock.Properties craftingBlockProps = defaultProps(Material.IRON,MaterialColor.GRAY);
+        AbstractBlock.Properties craftingBlockProps = defaultProps(Material.METAL,MaterialColor.COLOR_GRAY);
 
         STORAGE256K = register(event.getRegistry(), "256k_crafting_storage",new CraftingStorageBlockEx(craftingBlockProps,STORAGE_256K));
         STORAGE1M = register(event.getRegistry(), "1m_crafting_storage",new CraftingStorageBlockEx(craftingBlockProps, STORAGE_1M));
@@ -145,9 +145,9 @@ public class AE2Extras
      * AE blocks.
      */
     public static Block.Properties defaultProps(Material material, MaterialColor color) {
-        return Block.Properties.create(material, color)
+        return Block.Properties.of(material, color)
                 // These values previousls were encoded in AEBaseBlock
-                .hardnessAndResistance(2.2f, 11.f).harvestTool(ToolType.PICKAXE).harvestLevel(0)
+                .strength(2.2f, 11.f).harvestTool(ToolType.PICKAXE).harvestLevel(0)
                 .sound(SoundType.METAL);
     }
 

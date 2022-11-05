@@ -37,13 +37,15 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.item.crafting.ShapelessRecipe.Serializer;
+
 public final class DisassembleRecipe extends ShapelessRecipe {
     public static final IRecipeSerializer<ShapelessRecipe> SERIALIZER = new Serializer2();
 
     private static final ItemStack MISMATCHED_STACK = ItemStack.EMPTY;
 
     public DisassembleRecipe(ShapelessRecipe recipe) {
-        super(recipe.getId(), recipe.getGroup(), recipe.getRecipeOutput(),recipe.getIngredients());
+        super(recipe.getId(), recipe.getGroup(), recipe.getResultItem(),recipe.getIngredients());
     }
 
 
@@ -54,8 +56,8 @@ public final class DisassembleRecipe extends ShapelessRecipe {
 
     public boolean isCellEmpty(@Nonnull final CraftingInventory inv, @Nonnull final World w) {
         int itemCount = 0;
-        for (int slotIndex = 0; slotIndex < inv.getSizeInventory(); slotIndex++) {
-            final ItemStack storageCell = inv.getStackInSlot(slotIndex);
+        for (int slotIndex = 0; slotIndex < inv.getContainerSize(); slotIndex++) {
+            final ItemStack storageCell = inv.getItem(slotIndex);
             if (!storageCell.isEmpty()) {
                 // needs a single input in the recipe
                 itemCount++;
@@ -81,11 +83,11 @@ public final class DisassembleRecipe extends ShapelessRecipe {
 
     @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
 
         for(int i = 0; i < nonnulllist.size(); ++i) {
-            ItemStack item = inv.getStackInSlot(i);
-            if (Block.getBlockFromItem(item.getItem()) instanceof CraftingStorageBlockEx) {
+            ItemStack item = inv.getItem(i);
+            if (Block.byItem(item.getItem()) instanceof CraftingStorageBlockEx) {
                 IDefinitions definitions = Api.instance().definitions();
                 nonnulllist.set(i, definitions.blocks().craftingUnit().stack(1));
             }
@@ -102,13 +104,13 @@ public final class DisassembleRecipe extends ShapelessRecipe {
     public static class Serializer2 extends Serializer {
 
         @Override
-        public ShapelessRecipe read(ResourceLocation recipeId, JsonObject json) {
-            return new DisassembleRecipe(super.read(recipeId, json));
+        public ShapelessRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            return new DisassembleRecipe(super.fromJson(recipeId, json));
         }
 
         @Override
-        public ShapelessRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            return new DisassembleRecipe(super.read(recipeId, buffer));
+        public ShapelessRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+            return new DisassembleRecipe(super.fromNetwork(recipeId, buffer));
         }
     }
 }

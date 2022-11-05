@@ -24,6 +24,8 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
+import net.minecraft.item.Item.Properties;
+
 public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidStack> {
 
     protected final int perType;
@@ -53,9 +55,9 @@ public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidSt
         return perType;
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        this.disassembleDrive(player.getHeldItem(hand), world, player);
-        return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        this.disassembleDrive(player.getItemInHand(hand), world, player);
+        return new ActionResult<>(ActionResultType.SUCCESS, player.getItemInHand(hand));
     }
 
     private boolean disassembleDrive(ItemStack stack, World world, PlayerEntity player) {
@@ -66,14 +68,14 @@ public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidSt
 
             PlayerInventory playerInventory = player.inventory;
             IMEInventoryHandler<IAEFluidStack> inv = Api.instance().registries().cell().getCellInventory(stack, null, this.getChannel());
-            if (inv != null && playerInventory.getCurrentItem() == stack) {
+            if (inv != null && playerInventory.getSelected() == stack) {
                 InventoryAdaptor ia = InventoryAdaptor.getAdaptor(player);
                 IItemList<IAEFluidStack> list = inv.getAvailableItems(this.getChannel().createList());
                 if (list.isEmpty() && ia != null) {
-                    playerInventory.setInventorySlotContents(playerInventory.currentItem, ItemStack.EMPTY);
+                    playerInventory.setItem(playerInventory.selected, ItemStack.EMPTY);
                     ItemStack extraB = ia.addItems(getCellComponent());
                     if (!extraB.isEmpty()) {
-                        player.dropItem(extraB, false);
+                        player.drop(extraB, false);
                     }
 
                     IItemHandler upgradesInventory = this.getUpgradesInventory(stack);
@@ -82,13 +84,13 @@ public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidSt
                         ItemStack upgradeStack = upgradesInventory.getStackInSlot(upgradeIndex);
                         ItemStack leftStack = ia.addItems(upgradeStack);
                         if (!leftStack.isEmpty() && upgradeStack.getItem() instanceof IUpgradeModule) {
-                            player.dropItem(upgradeStack, false);
+                            player.drop(upgradeStack, false);
                         }
                     }
 
                     this.dropEmptyStorageCellCase(ia, player);
-                    if (player.container != null) {
-                        player.container.detectAndSendChanges();
+                    if (player.inventoryMenu != null) {
+                        player.inventoryMenu.broadcastChanges();
                     }
 
                     return true;
@@ -100,7 +102,7 @@ public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidSt
     }
 
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        return this.disassembleDrive(stack, context.getWorld(), context.getPlayer()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+        return this.disassembleDrive(stack, context.getLevel(), context.getPlayer()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
     }
 
     public ItemStack getCellComponent() {
@@ -112,7 +114,7 @@ public class AdvancedFluidStorageCellItem extends AbstractStorageCell<IAEFluidSt
         Api.instance().definitions().materials().emptyStorageCell().maybeStack(1).ifPresent(is -> {
             final ItemStack extraA = ia.addItems(is);
             if (!extraA.isEmpty()) {
-                player.dropItem(extraA, false);
+                player.drop(extraA, false);
             }
         });
     }

@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class MixinEvents {
     public static void getStorageBytes(CraftingStorageTileEntity te, CallbackInfoReturnable<Integer> cir) {
-        if (te.getWorld() == null || te.notLoaded() || te.isRemoved())
+        if (te.getLevel() == null || te.notLoaded() || te.isRemoved())
             return;
-        World world = te.getWorld();
-        BlockPos pos = te.getPos();
+        World world = te.getLevel();
+        BlockPos pos = te.getBlockPos();
         AbstractCraftingUnitBlock<?> unit = (AbstractCraftingUnitBlock<?>) world.getBlockState(pos).getBlock();
 
         if (unit.type == AE2Extras.STORAGE_256K) {

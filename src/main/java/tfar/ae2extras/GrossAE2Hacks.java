@@ -39,7 +39,7 @@ public class GrossAE2Hacks {
     private static final RenderMaterial STORAGE_16M_LIGHT = texture("16m_storage_light");
 
     private static RenderMaterial texture(String name) {
-        return new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(AE2Extras.MODID, "block/crafting/" + name));
+        return new RenderMaterial(AtlasTexture.LOCATION_BLOCKS, new ResourceLocation(AE2Extras.MODID, "block/crafting/" + name));
     }
 
     public static List<RenderMaterial> materials = Lists.newArrayList(STORAGE_256K_LIGHT,STORAGE_1M_LIGHT,STORAGE_4M_LIGHT,STORAGE_16M_LIGHT);
