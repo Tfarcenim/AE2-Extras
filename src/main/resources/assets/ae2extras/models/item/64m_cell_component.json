@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "ae2extras:item/256k_cell_component"
+    "layer0": "ae2extras:item/64m_cell_component"
   }
 }
