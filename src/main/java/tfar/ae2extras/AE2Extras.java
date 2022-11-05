@@ -34,14 +34,17 @@ public class AE2Extras {
     public static final int KILO = 1024;
     public static final String MODID = "ae2extras";
 
-    static Item.Properties props_nostack = new Item.Properties().tab(ModItems.TAB).stacksTo(1);
 
     public static Item createItemCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(props_nostack, cellComponent, AEItems.ITEM_CELL_HOUSING, idleDrain, 1024 * megaBytes, 8 * 1024 * megaBytes, 63, AEKeyType.items());
+        return new BasicStorageCell(noStack(), cellComponent, AEItems.ITEM_CELL_HOUSING, idleDrain, 1024 * megaBytes, 8 * 1024 * megaBytes, 63, AEKeyType.items());
     }
 
     public static Item createFluidCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(props_nostack, cellComponent, AEItems.FLUID_CELL_HOUSING, idleDrain, 1024 * megaBytes, 8 * 1024 * megaBytes, 63, AEKeyType.fluids());
+        return new BasicStorageCell(noStack(), cellComponent, AEItems.FLUID_CELL_HOUSING, idleDrain, 1024 * megaBytes, 8 * 1024 * megaBytes, 63, AEKeyType.fluids());
+    }
+
+    static Item.Properties noStack() {
+        return new Item.Properties().tab(ModItems.TAB).stacksTo(1);
     }
 
 
