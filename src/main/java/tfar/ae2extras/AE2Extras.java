@@ -109,7 +109,7 @@ public class AE2Extras {
     }
 
     private static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, String name, T obj) {
-        return register(registry, new ResourceLocation(MODID, name), obj);
+        return register(registry, makeId(name), obj);
     }
 
     public static ResourceLocation makeId(String id) {
