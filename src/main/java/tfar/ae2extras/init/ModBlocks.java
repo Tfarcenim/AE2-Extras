@@ -12,8 +12,9 @@ public class ModBlocks {
 
     static BlockBehaviour.Properties craftingBlockProps = defaultProps(Material.METAL, MaterialColor.COLOR_GRAY);
 
-    public static CraftingUnitBlock CRAFTING_STORAGE_64M= new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_1M);
-    public static CraftingUnitBlock CRAFTING_STORAGE_1M= new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_4M);
-    public static CraftingUnitBlock CRAFTING_STORAGE_4M= new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_16M);
-    public static CraftingUnitBlock CRAFTING_STORAGE_16M= new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_64M);
+    public static CraftingUnitBlock CRAFTING_STORAGE_1M = new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_1M);
+    public static CraftingUnitBlock CRAFTING_STORAGE_4M = new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_4M);
+    public static CraftingUnitBlock CRAFTING_STORAGE_16M = new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_16M);
+    public static CraftingUnitBlock CRAFTING_STORAGE_64M = new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_64M);
+
 }
