@@ -3,6 +3,11 @@ package tfar.ae2extras;
 import appeng.api.stacks.AEKeyType;
 import appeng.block.crafting.CraftingBlockItem;
 import appeng.block.crafting.CraftingUnitBlock;
+import appeng.blockentity.AEBaseBlockEntity;
+import appeng.blockentity.ClientTickingBlockEntity;
+import appeng.blockentity.ServerTickingBlockEntity;
+import appeng.blockentity.crafting.CraftingBlockEntity;
+import appeng.core.definitions.AEBlockEntities;
 import appeng.core.definitions.AEItems;
 import appeng.items.storage.BasicStorageCell;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -11,6 +16,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -18,7 +25,9 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import tfar.ae2extras.datagen.ModDatagen;
@@ -56,25 +65,51 @@ public class AE2Extras {
         bus.addGenericListener(Item.class, this::items);
         bus.addGenericListener(RecipeSerializer.class, this::recipes);
         bus.addListener(ModDatagen::gather);
-        //     bus.addListener(this::client);
+        bus.addListener(this::common);
+        if (FMLEnvironment.dist.isClient()) {
+                 bus.addListener(this::client);
+        }
+    }
+
+    private void common(FMLCommonSetupEvent e) {
+
+        Class<CraftingBlockEntity> entityClass = CraftingBlockEntity.class;
+
+        BlockEntityTicker<CraftingBlockEntity> serverTicker = null;
+        if (ServerTickingBlockEntity.class.isAssignableFrom(entityClass)) {
+            serverTicker = (level, pos, state, entity) -> {
+                ((ServerTickingBlockEntity) entity).serverTick();
+            };
+        }
+        BlockEntityTicker<CraftingBlockEntity> clientTicker = null;
+        if (ClientTickingBlockEntity.class.isAssignableFrom(entityClass)) {
+            clientTicker = (level, pos, state, entity) -> {
+                ((ClientTickingBlockEntity) entity).clientTick();
+            };
+        }
+
+        BlockEntityType<CraftingBlockEntity> type = AEBlockEntities.CRAFTING_STORAGE;
+
+        ModBlocks.CRAFTING_STORAGE_1M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
+        ModBlocks.CRAFTING_STORAGE_4M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
+        ModBlocks.CRAFTING_STORAGE_16M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
+        ModBlocks.CRAFTING_STORAGE_64M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
+
     }
 
     private void client(FMLClientSetupEvent t) {
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_64M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_1M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_16M, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_64M, RenderType.cutout());
 
     }
 
     private void blocks(final RegistryEvent.Register<Block> event) {
-
-        BlockBehaviour.Properties craftingBlockProps = defaultProps(Material.METAL, MaterialColor.COLOR_GRAY);
-
-        ModBlocks.CRAFTING_STORAGE_1M = register(event.getRegistry(), "1m_crafting_storage", new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_1M));
-        ModBlocks.CRAFTING_STORAGE_4M = register(event.getRegistry(), "4m_crafting_storage", new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_4M));
-        ModBlocks.CRAFTING_STORAGE_16M = register(event.getRegistry(), "16m_crafting_storage", new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_16M));
-        ModBlocks.CRAFTING_STORAGE_64M = register(event.getRegistry(), "64m_crafting_storage", new CraftingUnitBlock(craftingBlockProps, AE2ExtrasCraftingUnitType.STORAGE_64M));
+        register(event.getRegistry(), "1m_crafting_storage", ModBlocks.CRAFTING_STORAGE_1M);
+        register(event.getRegistry(), "4m_crafting_storage", ModBlocks.CRAFTING_STORAGE_4M);
+        register(event.getRegistry(), "16m_crafting_storage", ModBlocks.CRAFTING_STORAGE_16M);
+        register(event.getRegistry(), "64m_crafting_storage", ModBlocks.CRAFTING_STORAGE_64M);
     }
 
     private void recipes(RegistryEvent.Register<RecipeSerializer<?>> event) {

@@ -2,8 +2,6 @@ package tfar.ae2extras.datagen.assets;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
 import appeng.core.AppEng;
-import appeng.core.definitions.AEBlocks;
-import appeng.core.definitions.BlockDefinition;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -15,8 +13,6 @@ import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.ModBlocks;
-
-import static appeng.core.AppEng.makeId;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
