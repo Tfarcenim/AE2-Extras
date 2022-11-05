@@ -2,29 +2,21 @@ package tfar.ae2extras;
 
 import appeng.api.stacks.AEKeyType;
 import appeng.block.crafting.CraftingBlockItem;
-import appeng.block.crafting.CraftingUnitBlock;
-import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.ClientTickingBlockEntity;
 import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.core.definitions.AEItems;
 import appeng.items.storage.BasicStorageCell;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -33,6 +25,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import tfar.ae2extras.datagen.ModDatagen;
 import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.ModItems;
+import tfar.ae2extras.init.client.AE2ExtrasClient;
+import tfar.ae2extras.init.client.InitAutoRotatingModelEx;
 
 import static appeng.block.AEBaseBlock.defaultProps;
 
@@ -67,7 +61,9 @@ public class AE2Extras {
         bus.addListener(ModDatagen::gather);
         bus.addListener(this::common);
         if (FMLEnvironment.dist.isClient()) {
-                 bus.addListener(this::client);
+                 bus.addListener(AE2ExtrasClient::client);
+            InitAutoRotatingModelEx.init(bus);
+            bus.addListener(AE2ExtrasClient::models);
         }
     }
 
@@ -94,14 +90,6 @@ public class AE2Extras {
         ModBlocks.CRAFTING_STORAGE_4M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
         ModBlocks.CRAFTING_STORAGE_16M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
         ModBlocks.CRAFTING_STORAGE_64M.setBlockEntity(entityClass,type,clientTicker,serverTicker);
-
-    }
-
-    private void client(FMLClientSetupEvent t) {
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_1M, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_16M, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_64M, RenderType.cutout());
 
     }
 
