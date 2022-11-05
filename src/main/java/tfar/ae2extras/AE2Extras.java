@@ -1,21 +1,15 @@
 package tfar.ae2extras;
 
-import appeng.block.crafting.AbstractCraftingUnitBlock;
-import appeng.block.crafting.CraftingStorageItem;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import appeng.block.crafting.CraftingUnitBlock;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +17,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import tfar.ae2extras.init.ModBlocks;
+import tfar.ae2extras.init.ModItems;
+
+import static appeng.block.AEBaseBlock.defaultProps;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AE2Extras.MODID)
@@ -32,102 +30,75 @@ public class AE2Extras
 
     public static final String MODID = "ae2extras";
 
-    public static AbstractCraftingUnitBlock.CraftingUnitType STORAGE_256K;
-    public static AbstractCraftingUnitBlock.CraftingUnitType STORAGE_1M;
-    public static AbstractCraftingUnitBlock.CraftingUnitType STORAGE_4M;
-    public static AbstractCraftingUnitBlock.CraftingUnitType STORAGE_16M;
+    public static AE2ExtrasCraftingUnitType STORAGE_256K;
+    public static AE2ExtrasCraftingUnitType STORAGE_1M;
+    public static AE2ExtrasCraftingUnitType STORAGE_4M;
+    public static AE2ExtrasCraftingUnitType STORAGE_16M;
 
-    public static Block STORAGE256K;
-    public static Block STORAGE1M;
-    public static Block STORAGE4M;
-    public static Block STORAGE16M;
+    static Item.Properties props_nostack = new Item.Properties().tab(ModItems.TAB).stacksTo(1);
 
-    public static final ItemGroup TAB = new ItemGroup(MODID) {
-        @Override
-        public ItemStack makeIcon() {
-            return STORAGE16M.asItem().getDefaultInstance();
-        }
-    };
-
-    static Item.Properties props = new Item.Properties().tab(TAB);
-    static Item.Properties props_nostack = new Item.Properties().tab(TAB).stacksTo(1);
-
-    public static Item CELL_COMPONENT_256K = new Item(props);
-    public static Item ITEM_CELL_256K = new AdvancedStorageCellItem(props_nostack,256,2.5,() -> CELL_COMPONENT_256K);
-    public static Item CELL_COMPONENT_1M = new Item(props);
-    public static Item ITEM_CELL_1M = new AdvancedStorageCellItem(props_nostack,1024,3,() -> CELL_COMPONENT_1M);
-    public static Item CELL_COMPONENT_4M = new Item(props);
-    public static Item ITEM_CELL_4M = new AdvancedStorageCellItem(props_nostack,4096,3.5,() -> CELL_COMPONENT_4M);
-    public static Item CELL_COMPONENT_16M = new Item(props);
-    public static Item ITEM_CELL_16M = new AdvancedStorageCellItem(props_nostack,16384,4,() -> CELL_COMPONENT_16M);
-
-    public static Item FLUID_CELL_COMPONENT_256K = new Item(props);
-    public static Item FLUID_CELL_256K = new AdvancedFluidStorageCellItem(props_nostack,256,2.5,() -> FLUID_CELL_COMPONENT_256K);
-    public static Item FLUID_CELL_COMPONENT_1M = new Item(props);
-    public static Item FLUID_CELL_1M = new AdvancedFluidStorageCellItem(props_nostack,1024,3,() -> FLUID_CELL_COMPONENT_1M);
-    public static Item FLUID_CELL_COMPONENT_4M = new Item(props);
-    public static Item FLUID_CELL_4M = new AdvancedFluidStorageCellItem(props_nostack,4096,3.5,() -> FLUID_CELL_COMPONENT_4M);
-    public static Item FLUID_CELL_COMPONENT_16M = new Item(props);
-    public static Item FLUID_CELL_16M = new AdvancedFluidStorageCellItem(props_nostack,16384,4,() -> FLUID_CELL_COMPONENT_16M);
+  /*  public static Item ITEM_CELL_256K = new AdvancedStorageCellItem(props_nostack,256,2.5);
+    public static Item ITEM_CELL_1M = new AdvancedStorageCellItem(props_nostack,1024,3);
+    public static Item ITEM_CELL_4M = new AdvancedStorageCellItem(props_nostack,4096,3.5);
+    public static Item ITEM_CELL_16M = new AdvancedStorageCellItem(props_nostack,16384,4);
+    public static Item FLUID_CELL_256K = new AdvancedFluidStorageCellItem(props_nostack,256,2.5,() -> ModItems.FLUID_CELL_COMPONENT_256K);
+    public static Item FLUID_CELL_1M = new AdvancedFluidStorageCellItem(props_nostack,1024,3,() -> ModItems.FLUID_CELL_COMPONENT_1M);
+    public static Item FLUID_CELL_4M = new AdvancedFluidStorageCellItem(props_nostack,4096,3.5,() -> ModItems.FLUID_CELL_COMPONENT_4M);
+    public static Item FLUID_CELL_16M = new AdvancedFluidStorageCellItem(props_nostack,16384,4,() -> ModItems.FLUID_CELL_COMPONENT_16M);*/
 
 
     public AE2Extras() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         // Register the setup method for modloading
-        bus.addGenericListener(Block.class,this::blocks);
+      //  bus.addGenericListener(Block.class,this::blocks);
         bus.addGenericListener(Item.class,this::items);
-        bus.addGenericListener(IRecipeSerializer.class,this::recipes);
-        bus.addListener(this::client);
+      //  bus.addGenericListener(RecipeSerializer.class,this::recipes);
+   //     bus.addListener(this::client);
     }
 
     private void client(FMLClientSetupEvent t) {
-        RenderTypeLookup.setRenderLayer(STORAGE256K, RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(STORAGE1M, RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(STORAGE4M, RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(STORAGE16M, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_256K, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_1M, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_16M, RenderType.cutout());
 
     }
 
     private void blocks(final RegistryEvent.Register<Block> event) {
 
-        AbstractBlock.Properties craftingBlockProps = defaultProps(Material.METAL,MaterialColor.COLOR_GRAY);
+        BlockBehaviour.Properties craftingBlockProps = defaultProps(Material.METAL,MaterialColor.COLOR_GRAY);
 
-        STORAGE256K = register(event.getRegistry(), "256k_crafting_storage",new CraftingStorageBlockEx(craftingBlockProps,STORAGE_256K));
-        STORAGE1M = register(event.getRegistry(), "1m_crafting_storage",new CraftingStorageBlockEx(craftingBlockProps, STORAGE_1M));
-        STORAGE4M = register(event.getRegistry(), "4m_crafting_storage",new CraftingStorageBlockEx(craftingBlockProps, STORAGE_4M));
-        STORAGE16M = register(event.getRegistry(), "16m_crafting_storage",new CraftingStorageBlockEx(craftingBlockProps, STORAGE_16M));
+        ModBlocks.CRAFTING_STORAGE_256K = register(event.getRegistry(), "256k_crafting_storage",new CraftingUnitBlock(craftingBlockProps,STORAGE_256K));
+        ModBlocks.CRAFTING_STORAGE_1M = register(event.getRegistry(), "1m_crafting_storage",new CraftingUnitBlock(craftingBlockProps, STORAGE_1M));
+        ModBlocks.CRAFTING_STORAGE_4M = register(event.getRegistry(), "4m_crafting_storage",new CraftingUnitBlock(craftingBlockProps, STORAGE_4M));
+        ModBlocks.CRAFTING_STORAGE_16M = register(event.getRegistry(), "16m_crafting_storage",new CraftingUnitBlock(craftingBlockProps, STORAGE_16M));
 
     }
 
-    private void recipes(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-        register(event.getRegistry(),"disassemble",DisassembleRecipe.SERIALIZER);
+    private void recipes(RegistryEvent.Register<RecipeSerializer<?>> event) {
+      //  register(event.getRegistry(),"disassemble",DisassembleRecipe.SERIALIZER);
     }
 
     private void items(final RegistryEvent.Register<Item> event) {
-        register(event.getRegistry(),STORAGE256K.getRegistryName(),new CraftingStorageItem(STORAGE256K,props));
-        register(event.getRegistry(), STORAGE1M.getRegistryName(),new CraftingStorageItem(STORAGE1M,props));
-        register(event.getRegistry(), STORAGE4M.getRegistryName(),new CraftingStorageItem(STORAGE4M,props));
-        register(event.getRegistry(), STORAGE16M.getRegistryName(),new CraftingStorageItem(STORAGE16M,props));
+     //   register(event.getRegistry(), ModBlocks.CRAFTING_STORAGE_256K.getRegistryName(),new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_256K, ModItems.props));
+      //  register(event.getRegistry(), ModBlocks.CRAFTING_STORAGE_1M.getRegistryName(),new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_1M, ModItems.props));
+      //  register(event.getRegistry(), ModBlocks.CRAFTING_STORAGE_4M.getRegistryName(),new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_4M, ModItems.props));
+    //    register(event.getRegistry(), ModBlocks.CRAFTING_STORAGE_16M.getRegistryName(),new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_16M, ModItems.props));
 
-        register(event.getRegistry(),"256k_cell_component",CELL_COMPONENT_256K);
-        register(event.getRegistry(), "1m_cell_component",CELL_COMPONENT_1M);
-        register(event.getRegistry(), "4m_cell_component",CELL_COMPONENT_4M);
-        register(event.getRegistry(), "16m_cell_component",CELL_COMPONENT_16M);
+        register(event.getRegistry(),"256k_cell_component", ModItems.CELL_COMPONENT_256K);
+        register(event.getRegistry(), "1m_cell_component", ModItems.CELL_COMPONENT_1M);
+        register(event.getRegistry(), "4m_cell_component", ModItems.CELL_COMPONENT_4M);
+        register(event.getRegistry(), "16m_cell_component", ModItems.CELL_COMPONENT_16M);
 
-        register(event.getRegistry(),"256k_storage_cell",ITEM_CELL_256K);
-        register(event.getRegistry(), "1m_storage_cell",ITEM_CELL_1M);
-        register(event.getRegistry(), "4m_storage_cell",ITEM_CELL_4M);
-        register(event.getRegistry(), "16m_storage_cell",ITEM_CELL_16M);
+     //   register(event.getRegistry(),"256k_storage_cell",ITEM_CELL_256K);
+     //   register(event.getRegistry(), "1m_storage_cell",ITEM_CELL_1M);
+     //   register(event.getRegistry(), "4m_storage_cell",ITEM_CELL_4M);
+     //   register(event.getRegistry(), "16m_storage_cell",ITEM_CELL_16M);
 
-        register(event.getRegistry(),"256k_fluid_cell_component",FLUID_CELL_COMPONENT_256K);
-        register(event.getRegistry(), "1m_fluid_cell_component",FLUID_CELL_COMPONENT_1M);
-        register(event.getRegistry(), "4m_fluid_cell_component",FLUID_CELL_COMPONENT_4M);
-        register(event.getRegistry(), "16m_fluid_cell_component",FLUID_CELL_COMPONENT_16M);
-
-        register(event.getRegistry(),"256k_fluid_storage_cell",FLUID_CELL_256K);
-        register(event.getRegistry(), "1m_fluid_storage_cell",FLUID_CELL_1M);
-        register(event.getRegistry(), "4m_fluid_storage_cell",FLUID_CELL_4M);
-        register(event.getRegistry(), "16m_fluid_storage_cell",FLUID_CELL_16M);
+     //   register(event.getRegistry(),"256k_fluid_storage_cell",FLUID_CELL_256K);
+      //  register(event.getRegistry(), "1m_fluid_storage_cell",FLUID_CELL_1M);
+      //  register(event.getRegistry(), "4m_fluid_storage_cell",FLUID_CELL_4M);
+      //  register(event.getRegistry(), "16m_fluid_storage_cell",FLUID_CELL_16M);
     }
 
     private static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, ResourceLocation name, T obj) {
@@ -138,28 +109,5 @@ public class AE2Extras
     private static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, String name, T obj) {
         register(registry, new ResourceLocation(MODID, name), obj);
         return obj;
-    }
-
-    /**
-     * Utility function to create block properties with some sensible defaults for
-     * AE blocks.
-     */
-    public static Block.Properties defaultProps(Material material, MaterialColor color) {
-        return Block.Properties.of(material, color)
-                // These values previousls were encoded in AEBaseBlock
-                .strength(2.2f, 11.f).harvestTool(ToolType.PICKAXE).harvestLevel(0)
-                .sound(SoundType.METAL);
-    }
-
-    public static <T, E extends Throwable> T typeSwitch(AbstractCraftingUnitBlock.CraftingUnitType type, T o1, T o2, T o3, T o4, E o5) throws E {
-        if (type == STORAGE_256K)
-            return o1;
-        if (type == STORAGE_1M)
-            return o2;
-        if (type == STORAGE_4M)
-            return o3;
-        if (type == STORAGE_16M)
-            return o4;
-        throw o5;
     }
 }
