@@ -1,13 +1,12 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
-        mavenCentral()
-        maven {url='https://repo.spongepowered.org/maven/'}
+        maven { url = 'https://maven.minecraftforge.net' }
+       // maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
 
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -79,8 +78,8 @@ repositories {
     }
 
     maven {
-        name "Modmaven"
-        url "https://modmaven.dev/"
+        name = "Modmaven"
+        url = "https://modmaven.dev/"
     }
 }
 
@@ -90,7 +89,7 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}" //21
 
-    compile fg.deobf("appeng:appliedenergistics2:${ae2_version}")
+    implementation fg.deobf("appeng:appliedenergistics2:${ae2_version}")
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
@@ -104,6 +103,7 @@ dependencies {
 
     // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
     // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // These dependencies get remapped to your current MCP mappings
     // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
