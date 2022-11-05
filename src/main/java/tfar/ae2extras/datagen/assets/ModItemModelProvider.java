@@ -1,8 +1,5 @@
 package tfar.ae2extras.datagen.assets;
 
-import appeng.core.AppEng;
-import appeng.core.definitions.AEItems;
-import appeng.core.definitions.ItemDefinition;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
