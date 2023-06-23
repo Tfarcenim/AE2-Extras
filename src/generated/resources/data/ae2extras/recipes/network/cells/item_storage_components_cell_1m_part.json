@@ -2,18 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "aba",
-    "bcb",
-    "aba"
+    "cdc",
+    "aca"
   ],
   "key": {
     "a": {
       "tag": "forge:dusts/redstone"
     },
     "b": {
-      "tag": "ae2:all_certus_quartz"
+      "item": "ae2:calculation_processor"
     },
     "c": {
-      "item": "ae2:logic_processor"
+      "item": "ae2:cell_component_256k"
+    },
+    "d": {
+      "item": "ae2:quartz_glass"
     }
   },
   "result": {
