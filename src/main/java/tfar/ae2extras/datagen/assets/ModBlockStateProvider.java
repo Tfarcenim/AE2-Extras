@@ -1,9 +1,10 @@
 package tfar.ae2extras.datagen.assets;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
-import appeng.core.AppEng;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
@@ -15,7 +16,7 @@ import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.ModBlocks;
 
 public class ModBlockStateProvider extends BlockStateProvider {
-    public ModBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
+    public ModBlockStateProvider(PackOutput gen, ExistingFileHelper exFileHelper) {
         super(gen, AE2Extras.MODID, exFileHelper);
     }
 
@@ -35,7 +36,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void craftingModel(Block block, String name) {
-        BlockModelBuilder blockModel = models().cubeAll("block/crafting/" + name, AE2Extras.makeId("block/crafting/" + name));
+        BlockModelBuilder blockModel = models().cubeAll("block/crafting/" + name, AE2Extras.id("block/crafting/" + name));
         getVariantBuilder(block)
                 .partialState().with(AbstractCraftingUnitBlock.FORMED, false).setModels(
                         new ConfiguredModel(blockModel))
@@ -50,18 +51,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void builtInModel(Block block, boolean skipItem) {
-        BlockModelBuilder model = builtInBlockModel(Registry.BLOCK.getKey(block).getPath());
+        BlockModelBuilder model = builtInBlockModel(BuiltInRegistries.BLOCK.getKey(block).getPath());
         getVariantBuilder(block).partialState().setModels(new ConfiguredModel(model));
 
         if (!skipItem) {
             // The item model should not reference the block model since that will be replaced in-code
-            itemModels().getBuilder(Registry.BLOCK.getKey(block).getPath());
+            itemModels().getBuilder(BuiltInRegistries.BLOCK.getKey(block).getPath());
         }
     }
 
     private BlockModelBuilder builtInBlockModel(String name) {
         BlockModelBuilder model = models().getBuilder("block/" + name);
-        ResourceLocation loaderId = AE2Extras.makeId("block/" + name);
+        ResourceLocation loaderId = AE2Extras.id("block/" + name);
         model.customLoader((bmb, efh) -> new CustomLoaderBuilder<>(loaderId, bmb, efh) {
         });
         return model;

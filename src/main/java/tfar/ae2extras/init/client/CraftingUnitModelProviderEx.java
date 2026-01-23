@@ -77,7 +77,7 @@ public class CraftingUnitModelProviderEx extends AbstractCraftingUnitModelProvid
 
     private static Material texture(String name) {
         Material mat = new Material(TextureAtlas.LOCATION_BLOCKS,
-                AE2Extras.makeId("block/crafting/" + name));
+                AE2Extras.id("block/crafting/" + name));
         MATERIALS.add(mat);
         return mat;
     }

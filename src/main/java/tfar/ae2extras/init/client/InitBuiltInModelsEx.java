@@ -27,7 +27,7 @@ public class InitBuiltInModelsEx {
     }
 
     private static <T extends IModelGeometry<T>> void addBuiltInModel(String id, Supplier<T> modelFactory) {
-        ModelLoaderRegistry.registerLoader(AE2Extras.makeId(id),
+        ModelLoaderRegistry.registerLoader(AE2Extras.id(id),
                 new SimpleModelLoader<>(modelFactory));
     }
 }

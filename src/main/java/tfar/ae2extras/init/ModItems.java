@@ -1,6 +1,7 @@
 package tfar.ae2extras.init;
 
 import appeng.items.materials.StorageComponentItem;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -8,13 +9,10 @@ import net.minecraft.world.item.Items;
 import tfar.ae2extras.AE2Extras;
 
 public class ModItems {
-    public static final CreativeModeTab TAB = new CreativeModeTab(AE2Extras.MODID) {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(Items.DIAMOND);//ModBlocks.CRAFTING_STORAGE_16M.asItem().getDefaultInstance();
-        }
-    };
-    public static Item.Properties props = new Item.Properties().tab(TAB);
+    public static final CreativeModeTab TAB = CreativeModeTab.builder().icon(() -> Items.DIAMOND.getDefaultInstance())
+            .title(Component.translatable("itemGroup.ae2extras"))
+            .build();
+    public static Item.Properties props = new Item.Properties();
     public static StorageComponentItem CELL_COMPONENT_1M = new StorageComponentItem(props,AE2Extras.KILO);
     public static StorageComponentItem CELL_COMPONENT_4M = new StorageComponentItem(props,4*AE2Extras.KILO);
     public static StorageComponentItem CELL_COMPONENT_16M = new StorageComponentItem(props,16*AE2Extras.KILO);

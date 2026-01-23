@@ -1,7 +1,9 @@
 package tfar.ae2extras.datagen.assets;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -11,7 +13,7 @@ import tfar.ae2extras.init.ModItems;
 
 
 public class ModItemModelProvider extends ItemModelProvider {
-    public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+    public ModItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
         super(generator, AE2Extras.MODID, existingFileHelper);
     }
 
@@ -34,22 +36,22 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void storageCell(Item item, String background) {
-        String id = Registry.ITEM.getKey(item).getPath();
+        String id = BuiltInRegistries.ITEM.getKey(item).getPath();
         singleTexture(
                 id,
                 mcLoc("item/generated"),
                 "layer0",
-                AE2Extras.makeId(background))
-                .texture("layer1", AE2Extras.makeId("item/storage_cell_led"));//todo, this is a vanilla AE2 texture, use the original when possible
+                AE2Extras.id(background))
+                .texture("layer1", AE2Extras.id("item/storage_cell_led"));//todo, this is a vanilla AE2 texture, use the original when possible
     }
 
     private ItemModelBuilder flatSingleLayer(Item item, String texture) {
-        String id = Registry.ITEM.getKey(item).getPath();
+        String id = BuiltInRegistries.ITEM.getKey(item).getPath();
         return singleTexture(
                 id,
                 mcLoc("item/generated"),
                 "layer0",
-                AE2Extras.makeId(texture));
+                AE2Extras.id(texture));
     }
 
 }

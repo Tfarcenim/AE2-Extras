@@ -26,8 +26,8 @@ public class AE2ExtrasCraftingUnitType implements ICraftingUnitType {
         this.item = item;
     }
     @Override
-    public int getStorageBytes() {
-        return bytes * 1048576;
+    public long getStorageBytes() {
+        return bytes * 1048576L;
     }
 
     @Override
