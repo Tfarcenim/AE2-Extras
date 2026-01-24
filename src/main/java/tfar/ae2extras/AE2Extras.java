@@ -1,18 +1,17 @@
 package tfar.ae2extras;
 
 import appeng.api.stacks.AEKeyType;
-import appeng.block.crafting.CraftingBlockItem;
 import appeng.blockentity.ClientTickingBlockEntity;
 import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.core.definitions.AEItems;
 import appeng.items.storage.BasicStorageCell;
+import appeng.items.storage.StorageTier;
+import appeng.menu.me.common.MEStorageMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,11 +19,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegisterEvent;
 import tfar.ae2extras.datagen.ModDatagen;
 import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.ModItems;
+import tfar.ae2extras.init.ModMenuTypes;
 import tfar.ae2extras.init.client.AE2ExtrasClient;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -38,11 +37,18 @@ public class AE2Extras {
 
 
     public static Item createItemCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(noStack(), cellComponent, AEItems.ITEM_CELL_HOUSING, idleDrain, KILO * megaBytes, 8 * KILO * megaBytes, 63, AEKeyType.items());
+        return new BasicStorageCell(noStack(), cellComponent, AEItems.ITEM_CELL_HOUSING, idleDrain, KILO * megaBytes,
+                8 * KILO * megaBytes, 63, AEKeyType.items());
+    }
+
+    public static Item createMonoItemCell(StorageTier tier) {
+        return new MonoStorageCellItem(noStack(), tier.componentSupplier().get(), AEItems.ITEM_CELL_HOUSING,tier.idleDrain(), tier.bytes(),
+                0, 1, AEKeyType.items());
     }
 
     public static Item createFluidCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(noStack(), cellComponent, AEItems.FLUID_CELL_HOUSING, idleDrain, KILO * megaBytes, 8 * KILO * megaBytes, 63, AEKeyType.fluids());
+        return new BasicStorageCell(noStack(), cellComponent, AEItems.FLUID_CELL_HOUSING, idleDrain, KILO * megaBytes,
+                8 * KILO * megaBytes, 63, AEKeyType.fluids());
     }
 
     static Item.Properties noStack() {
@@ -93,10 +99,10 @@ public class AE2Extras {
         event.register(Registries.BLOCK, AE2Extras.id("16m_crafting_storage"), () -> ModBlocks.CRAFTING_STORAGE_16M);
         event.register(Registries.BLOCK, AE2Extras.id("64m_crafting_storage"), () -> ModBlocks.CRAFTING_STORAGE_64M);
 
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_1M.getRegistryName(), () -> new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_1M, ModItems.props, () -> ModItems.CELL_COMPONENT_1M));
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_4M.getRegistryName(), () -> new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_4M, ModItems.props, () -> ModItems.CELL_COMPONENT_4M));
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_16M.getRegistryName(), () -> new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_16M, ModItems.props, () -> ModItems.CELL_COMPONENT_16M));
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_64M.getRegistryName(), () -> new CraftingBlockItem(ModBlocks.CRAFTING_STORAGE_64M, ModItems.props, () -> ModItems.CELL_COMPONENT_64M));
+        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_1M.getRegistryName(), () -> ModItems.CRAFTING_STORAGE_1M);
+        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_4M.getRegistryName(), () -> ModItems.CRAFTING_STORAGE_4M);
+        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_16M.getRegistryName(), () -> ModItems.CRAFTING_STORAGE_16M);
+        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_64M.getRegistryName(), () -> ModItems.CRAFTING_STORAGE_64M);
 
         event.register(Registries.ITEM, AE2Extras.id("cell_component_1m"), () -> ModItems.CELL_COMPONENT_1M);
         event.register(Registries.ITEM, AE2Extras.id("cell_component_4m"), () -> ModItems.CELL_COMPONENT_4M);
@@ -112,6 +118,11 @@ public class AE2Extras {
         event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_4m"), () -> ModItems.FLUID_CELL_4M);
         event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_16m"), () -> ModItems.FLUID_CELL_16M);
         event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_64m"), () -> ModItems.FLUID_CELL_64M);
+
+        event.register(Registries.ITEM, AE2Extras.id("mono_item_storage_cell_1k"), () -> ModItems.MONO_ITEM_CELL_1K);
+
+        event.register(Registries.MENU, AE2Extras.id("mono_item_cell"), () -> ModMenuTypes.MONO_ITEM_CELL);
+
 
         event.register(Registries.CREATIVE_MODE_TAB, AE2Extras.id("tab"), () -> ModItems.TAB);
     }

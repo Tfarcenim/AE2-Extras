@@ -62,11 +62,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private BlockModelBuilder builtInBlockModel(String name) {
         BlockModelBuilder model = models().getBuilder("block/" + name);
-        ResourceLocation loaderId = AE2Extras.id("block/" + name);
-        model.customLoader((bmb, efh) -> new CustomLoaderBuilder<>(loaderId, bmb, efh) {
-        });
         return model;
     }
-
-
 }

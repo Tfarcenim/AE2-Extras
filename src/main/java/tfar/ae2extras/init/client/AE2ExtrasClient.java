@@ -1,13 +1,17 @@
 package tfar.ae2extras.init.client;
 
+import appeng.init.client.InitScreens;
 import appeng.items.storage.BasicStorageCell;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import tfar.ae2extras.MonoCellScreen;
 import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.ModItems;
+import tfar.ae2extras.init.ModMenuTypes;
 
 public class AE2ExtrasClient {
 
@@ -24,6 +28,7 @@ public class AE2ExtrasClient {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_16M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_64M, RenderType.cutout());
+        InitScreens.register(ModMenuTypes.MONO_ITEM_CELL, MonoCellScreen::new,"/screens/mono_item_cell.json");
 
     }
 
@@ -36,6 +41,6 @@ public class AE2ExtrasClient {
         event.getItemColors().register(BasicStorageCell::getColor, ModItems.ITEM_CELL_1M, ModItems.FLUID_CELL_1M,
                 ModItems.ITEM_CELL_4M, ModItems.FLUID_CELL_4M,
                 ModItems.ITEM_CELL_16M, ModItems.FLUID_CELL_16M,
-                ModItems.ITEM_CELL_64M, ModItems.FLUID_CELL_64M);
+                ModItems.ITEM_CELL_64M, ModItems.FLUID_CELL_64M,ModItems.MONO_ITEM_CELL_1K);
     }
 }

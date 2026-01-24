@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-23T20:33:19.9163977	Item Models: ae2extras
+// 1.20.1	2026-01-23T21:33:25.3019019	Item Models: ae2extras
 d0fbabc632c82e7484f8ff8fd87905d556731586 assets/ae2extras/models/item/cell_component_16m.json
 a96a5457a0c2ad93c77ae3484dffae21c611ec65 assets/ae2extras/models/item/cell_component_1m.json
 65d98a88a0175d6bc3a20a121a2fc5bf31a88992 assets/ae2extras/models/item/cell_component_4m.json
@@ -11,3 +11,4 @@ cf550db95aaab2185af211c3f996d92470032390 assets/ae2extras/models/item/item_stora
 97e0bacfb12c8b8bc165d23aaea053b7d6365ff0 assets/ae2extras/models/item/item_storage_cell_1m.json
 507c9f21e360e272a82aa7f8c3e216ec01b17813 assets/ae2extras/models/item/item_storage_cell_4m.json
 94f4e1295832ea1d40f90450c1237c7ebd760318 assets/ae2extras/models/item/item_storage_cell_64m.json
+45d11bdddaa28d7bccdcd6dd80014687abf10c6c assets/ae2extras/models/item/mono_item_storage_cell_1k.json

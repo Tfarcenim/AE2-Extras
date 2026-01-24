@@ -33,6 +33,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         flatSingleLayer(ModItems.CELL_COMPONENT_1M, "item/cell_component_1m");
         flatSingleLayer(ModItems.CELL_COMPONENT_4M, "item/cell_component_4m");
         flatSingleLayer(ModItems.CELL_COMPONENT_64M, "item/cell_component_64m");
+
+        storageCell(ModItems.MONO_ITEM_CELL_1K, "item/mono_item_storage_cell_1k");
     }
 
     private void storageCell(Item item, String background) {
