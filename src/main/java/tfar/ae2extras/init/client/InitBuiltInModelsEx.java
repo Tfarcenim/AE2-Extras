@@ -1,9 +1,8 @@
 package tfar.ae2extras.init.client;
 
-import appeng.client.render.SimpleModelLoader;
 import appeng.client.render.crafting.CraftingCubeModel;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.geometry.IModelGeometry;
+import appeng.hooks.BuiltInModelHooks;
+import net.minecraft.client.resources.model.UnbakedModel;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.AE2ExtrasCraftingUnitType;
 
@@ -26,8 +25,7 @@ public class InitBuiltInModelsEx {
 
     }
 
-    private static <T extends IModelGeometry<T>> void addBuiltInModel(String id, Supplier<T> modelFactory) {
-        ModelLoaderRegistry.registerLoader(AE2Extras.id(id),
-                new SimpleModelLoader<>(modelFactory));
+    private static <T extends UnbakedModel> void addBuiltInModel(String id, Supplier<T> modelFactory) {
+        BuiltInModelHooks.addBuiltInModel(AE2Extras.id(id), modelFactory.get());
     }
 }

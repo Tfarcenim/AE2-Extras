@@ -1,17 +1,10 @@
 package tfar.ae2extras.init.client;
 
-import appeng.block.AEBaseBlock;
-import appeng.client.render.crafting.MonitorBakedModel;
-import appeng.client.render.model.AutoRotatingBakedModel;
-import appeng.core.AppEng;
-import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.BlockDefinition;
-import appeng.init.client.InitAutoRotatingModel;
 import com.google.common.collect.Sets;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import tfar.ae2extras.AE2Extras;
 
@@ -27,7 +20,7 @@ public class InitAutoRotatingModelEx {
     }
 
     public static void init(IEventBus modEventBus) {
-        modEventBus.addListener(InitAutoRotatingModelEx::onModelBake);
+        //modEventBus.addListener(InitAutoRotatingModelEx::onModelBake);
     }
 
     private static void register(BlockDefinition<?> block, Function<BakedModel, BakedModel> customizer) {
@@ -35,9 +28,9 @@ public class InitAutoRotatingModelEx {
         CUSTOMIZERS.put(path, customizer);
     }
 
-    private static void onModelBake(ModelBakeEvent event) {
-        Map<ResourceLocation, BakedModel> modelRegistry = event.getModelRegistry();
-        Set<ResourceLocation> keys = Sets.newHashSet(modelRegistry.keySet());
+    private static void onModelBake(ResourceLocation event) {
+        /*Map<ResourceLocation, BakedModel> modelRegistry = event.getModelRegistry();
+        //Set<ResourceLocation> keys = Sets.newHashSet(modelRegistry.keySet());
         BakedModel missingModel = modelRegistry.get(ModelBakery.MISSING_MODEL_LOCATION);
 
         for (ResourceLocation location : keys) {
@@ -60,6 +53,6 @@ public class InitAutoRotatingModelEx {
                     modelRegistry.put(location, newModel);
                 }
             }
-        }
+        }*/
     }
 }

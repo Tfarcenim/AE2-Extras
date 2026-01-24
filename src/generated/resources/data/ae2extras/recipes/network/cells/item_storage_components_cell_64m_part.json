@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "aba",
-    "cdc",
-    "aca"
-  ],
+  "category": "redstone",
   "key": {
     "a": {
       "tag": "forge:dusts/glowstone"
@@ -19,7 +15,13 @@
       "item": "ae2:quartz_glass"
     }
   },
+  "pattern": [
+    "aba",
+    "cdc",
+    "aca"
+  ],
   "result": {
     "item": "ae2extras:cell_component_64m"
-  }
+  },
+  "show_notification": true
 }

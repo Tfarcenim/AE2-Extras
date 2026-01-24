@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "aba",
-    "bcb",
-    "ddd"
-  ],
+  "category": "redstone",
   "key": {
     "a": {
       "item": "ae2:quartz_glass"
@@ -19,7 +15,13 @@
       "tag": "forge:ingots/iron"
     }
   },
+  "pattern": [
+    "aba",
+    "bcb",
+    "ddd"
+  ],
   "result": {
     "item": "ae2extras:item_storage_cell_64m"
-  }
+  },
+  "show_notification": true
 }

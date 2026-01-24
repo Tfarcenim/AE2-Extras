@@ -9,7 +9,7 @@
       "tag": "forge:dusts/redstone"
     },
     "c": {
-      "item": "ae2extras:cell_component_4m"
+      "item": "ae2extras:cell_component_16m"
     },
     "d": {
       "tag": "forge:ingots/copper"
@@ -21,7 +21,7 @@
     "ddd"
   ],
   "result": {
-    "item": "ae2extras:fluid_storage_cell_4m"
+    "item": "ae2extras:fluid_storage_cell_16m"
   },
   "show_notification": true
 }

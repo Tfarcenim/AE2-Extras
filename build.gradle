@@ -108,6 +108,8 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}" //21
 
     implementation fg.deobf("appeng:appliedenergistics2-forge:${ae2_version}")
+
+    implementation fg.deobf("org.appliedenergistics:guideme:${guideme_version}")
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
