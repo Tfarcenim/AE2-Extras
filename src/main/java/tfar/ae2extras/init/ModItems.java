@@ -1,6 +1,7 @@
 package tfar.ae2extras.init;
 
 import appeng.items.materials.StorageComponentItem;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -9,9 +10,7 @@ import net.minecraft.world.item.Items;
 import tfar.ae2extras.AE2Extras;
 
 public class ModItems {
-    public static final CreativeModeTab TAB = CreativeModeTab.builder().icon(() -> Items.DIAMOND.getDefaultInstance())
-            .title(Component.translatable("itemGroup.ae2extras"))
-            .build();
+
     public static Item.Properties props = new Item.Properties();
     public static StorageComponentItem CELL_COMPONENT_1M = new StorageComponentItem(props,AE2Extras.KILO);
     public static StorageComponentItem CELL_COMPONENT_4M = new StorageComponentItem(props,4*AE2Extras.KILO);
@@ -25,4 +24,12 @@ public class ModItems {
     public static Item ITEM_CELL_4M = AE2Extras.createItemCell(CELL_COMPONENT_1M,3.5f,4);
     public static Item ITEM_CELL_16M = AE2Extras.createItemCell(CELL_COMPONENT_1M,4,16);
     public static Item ITEM_CELL_64M = AE2Extras.createItemCell(CELL_COMPONENT_64M,4.5f,64);
+
+    public static final CreativeModeTab TAB = CreativeModeTab.builder().icon(() -> Items.DIAMOND.getDefaultInstance())
+            .title(Component.translatable("itemGroup.ae2extras"))
+            .displayItems((pParameters, pOutput) -> {
+                BuiltInRegistries.ITEM.stream().filter(item -> BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(AE2Extras.MODID))
+                        .forEach(pOutput::accept);
+            })
+            .build();
 }

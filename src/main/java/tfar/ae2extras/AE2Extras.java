@@ -112,6 +112,8 @@ public class AE2Extras {
         event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_4m"), () -> ModItems.FLUID_CELL_4M);
         event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_16m"), () -> ModItems.FLUID_CELL_16M);
         event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_64m"), () -> ModItems.FLUID_CELL_64M);
+
+        event.register(Registries.CREATIVE_MODE_TAB, AE2Extras.id("tab"), () -> ModItems.TAB);
     }
 
     public static ResourceLocation id(String id) {
