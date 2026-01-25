@@ -11,6 +11,14 @@
       "top": 37
     }
   },
+  "widgets": {
+    "editbox": {
+      "left": 9,
+      "top": 18,
+      "width": 180,
+      "height": 20
+    }
+  },
   "text": {
     "dialog_title": {
       "text": {

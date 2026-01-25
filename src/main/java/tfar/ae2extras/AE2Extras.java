@@ -27,6 +27,7 @@ import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.ModItems;
 import tfar.ae2extras.init.ModMenuTypes;
 import tfar.ae2extras.init.client.AE2ExtrasClient;
+import tfar.ae2extras.network.PacketHandler;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AE2Extras.MODID)
@@ -95,8 +96,7 @@ public class AE2Extras {
 
         String storageCellGroup = GuiText.StorageCells.getTranslationKey();
         Upgrades.add(AEItems.VOID_CARD,ModItems.MONO_ITEM_CELL_1K, 1, storageCellGroup);
-
-
+        PacketHandler.registerPackets();
     }
 
     private void blocks(final RegisterEvent event) {
