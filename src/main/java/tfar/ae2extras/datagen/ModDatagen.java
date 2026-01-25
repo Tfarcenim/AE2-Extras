@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
 import tfar.ae2extras.datagen.assets.ModBlockStateProvider;
 import tfar.ae2extras.datagen.assets.ModItemModelProvider;
+import tfar.ae2extras.datagen.assets.ModLangProvider;
 import tfar.ae2extras.datagen.data.ModRecipeProvider;
 
 public class ModDatagen {
@@ -19,6 +20,7 @@ public class ModDatagen {
         if (client) {
             dataGenerator.addProvider(true,new ModItemModelProvider(packOutput,e.getExistingFileHelper()));
             dataGenerator.addProvider(true,new ModBlockStateProvider(packOutput,e.getExistingFileHelper()));
+            dataGenerator.addProvider(true,new ModLangProvider(packOutput));
         }
     }
 }

@@ -6,7 +6,7 @@
     "srcRect": [0, 0, 176, 166]
   },
   "slots": {
-    "STORAGE_CELL": {
+    "CONFIG": {
       "left": 80,
       "top": 37
     }
@@ -14,18 +14,12 @@
   "text": {
     "dialog_title": {
       "text": {
-        "translate": "gui.ae2.Chest"
+        "translate": "gui.ae2extras.MonoItemCell"
       },
       "position": {
         "left": 8,
         "top": 6
       }
-    }
-  },
-  "widgets": {
-    "openPriority": {
-      "left": 154,
-      "top": 0
     }
   }
 }

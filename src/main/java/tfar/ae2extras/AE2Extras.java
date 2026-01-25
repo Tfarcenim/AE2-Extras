@@ -1,11 +1,13 @@
 package tfar.ae2extras;
 
 import appeng.api.stacks.AEKeyType;
+import appeng.api.upgrades.Upgrades;
 import appeng.blockentity.ClientTickingBlockEntity;
 import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.core.definitions.AEItems;
+import appeng.core.localization.GuiText;
 import appeng.items.storage.BasicStorageCell;
 import appeng.items.storage.StorageTier;
 import appeng.menu.me.common.MEStorageMenu;
@@ -42,8 +44,8 @@ public class AE2Extras {
     }
 
     public static Item createMonoItemCell(StorageTier tier) {
-        return new MonoStorageCellItem(noStack(), tier.componentSupplier().get(), AEItems.ITEM_CELL_HOUSING,tier.idleDrain(), tier.bytes(),
-                0, 1, AEKeyType.items());
+        return new MonoStorageCellItem(noStack(), tier.componentSupplier().get(), AEItems.ITEM_CELL_HOUSING,tier.idleDrain(), tier.bytes()/AE2Extras.KILO,
+                1, 1, AEKeyType.items());
     }
 
     public static Item createFluidCell(Item cellComponent, float idleDrain, int megaBytes) {
@@ -90,6 +92,10 @@ public class AE2Extras {
         ModBlocks.CRAFTING_STORAGE_4M.setBlockEntity(entityClass, type, clientTicker, serverTicker);
         ModBlocks.CRAFTING_STORAGE_16M.setBlockEntity(entityClass, type, clientTicker, serverTicker);
         ModBlocks.CRAFTING_STORAGE_64M.setBlockEntity(entityClass, type, clientTicker, serverTicker);
+
+        String storageCellGroup = GuiText.StorageCells.getTranslationKey();
+        Upgrades.add(AEItems.VOID_CARD,ModItems.MONO_ITEM_CELL_1K, 1, storageCellGroup);
+
 
     }
 
