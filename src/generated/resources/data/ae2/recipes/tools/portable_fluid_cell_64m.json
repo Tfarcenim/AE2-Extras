@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ae2:chest"
+    },
+    {
+      "item": "ae2extras:cell_component_64m"
+    },
+    {
+      "item": "ae2:energy_cell"
+    },
+    {
+      "item": "ae2:fluid_cell_housing"
+    }
+  ],
+  "result": {
+    "item": "ae2extras:portable_fluid_cell_64m"
+  }
+}

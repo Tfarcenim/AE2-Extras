@@ -2,15 +2,16 @@ package tfar.ae2extras.init.client;
 
 import appeng.init.client.InitScreens;
 import appeng.items.storage.BasicStorageCell;
-import net.minecraft.client.gui.screens.MenuScreens;
+import appeng.items.tools.powered.PortableCellItem;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import tfar.ae2extras.MonoCellScreen;
 import tfar.ae2extras.init.ModBlocks;
-import tfar.ae2extras.init.ModItems;
+import tfar.ae2extras.init.AE2ExtrasItems;
 import tfar.ae2extras.init.ModMenuTypes;
 
 public class AE2ExtrasClient {
@@ -28,19 +29,22 @@ public class AE2ExtrasClient {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_16M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_64M, RenderType.cutout());
-        InitScreens.register(ModMenuTypes.MONO_ITEM_CELL, MonoCellScreen::new,"/screens/mono_item_cell.json");
+        InitScreens.register(ModMenuTypes.MONO_CELL, MonoCellScreen::new,"/screens/mono_cell.json");
 
     }
 
     public static void colors(RegisterColorHandlersEvent.Item event) {
-     /*   itemColors.register(PortableCellItem::getColor, AEItems.PORTABLE_ITEM_CELL1K, AEItems.PORTABLE_FLUID_CELL1K,
-                AEItems.PORTABLE_ITEM_CELL4K, AEItems.PORTABLE_FLUID_CELL4K,
-                AEItems.PORTABLE_ITEM_CELL16K, AEItems.PORTABLE_FLUID_CELL16K,
-                AEItems.PORTABLE_ITEM_CELL64K, AEItems.PORTABLE_FLUID_CELL64K);*/
+        event.register(PortableCellItem::getColor,
+                AE2ExtrasItems.PORTABLE_ITEM_CELL_1M, AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,
+                AE2ExtrasItems.PORTABLE_ITEM_CELL_4M, AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,
+                AE2ExtrasItems.PORTABLE_ITEM_CELL_16M, AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,
+                AE2ExtrasItems.PORTABLE_ITEM_CELL_64M, AE2ExtrasItems.PORTABLE_FLUID_CELL_64M);
 
-        event.getItemColors().register(BasicStorageCell::getColor, ModItems.ITEM_CELL_1M, ModItems.FLUID_CELL_1M,
-                ModItems.ITEM_CELL_4M, ModItems.FLUID_CELL_4M,
-                ModItems.ITEM_CELL_16M, ModItems.FLUID_CELL_16M,
-                ModItems.ITEM_CELL_64M, ModItems.FLUID_CELL_64M,ModItems.MONO_ITEM_CELL_1K);
+        event.register(BasicStorageCell::getColor, AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M,
+                AE2ExtrasItems.ITEM_CELL_4M, AE2ExtrasItems.FLUID_CELL_4M,
+                AE2ExtrasItems.ITEM_CELL_16M, AE2ExtrasItems.FLUID_CELL_16M,
+                AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M);
+
+        event.register(BasicStorageCell::getColor, AE2ExtrasItems.monoCells().toArray(Item[]::new));
     }
 }

@@ -1,16 +1,14 @@
 package tfar.ae2extras.datagen.assets;
 
 import appeng.block.crafting.AbstractCraftingUnitBlock;
+import appeng.block.networking.EnergyCellBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.ModBlocks;
@@ -33,6 +31,50 @@ public class ModBlockStateProvider extends BlockStateProvider {
         craftingModel(ModBlocks.CRAFTING_STORAGE_4M, "4m_storage");
         craftingModel(ModBlocks.CRAFTING_STORAGE_16M, "16m_storage");
         craftingModel(ModBlocks.CRAFTING_STORAGE_64M, "64m_storage");
+
+        //{
+        //  "variants": {
+        //    "fullness=0": {
+        //      "model": "ae2:block/energy_cell_0"
+        //    },
+        //    "fullness=1": {
+        //      "model": "ae2:block/energy_cell_1"
+        //    },
+        //    "fullness=2": {
+        //      "model": "ae2:block/energy_cell_2"
+        //    },
+        //    "fullness=3": {
+        //      "model": "ae2:block/energy_cell_3"
+        //    },
+        //    "fullness=4": {
+        //      "model": "ae2:block/energy_cell_4"
+        //    }
+        //  }
+        //}
+
+        energyCell(ModBlocks.DENSER_ENERGY_CELL);
+        energyCell(ModBlocks.DENSEST_ENERGY_CELL);
+    }
+
+    private void energyCell(EnergyCellBlock block) {
+        String s = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        getVariantBuilder(block).forAllStates(state -> {
+            int fullness = state.getValue(EnergyCellBlock.ENERGY_STORAGE);
+            ModelFile modelFile = models().cubeAll(s+"_"+fullness,new ResourceLocation("ae2","block/dense_energy_cell_"+fullness));
+            return ConfiguredModel.builder().modelFile(modelFile).build();
+        });
+        ModelFile model = itemModels().getBuilder(s)
+                        .parent(models().getExistingFile(modLoc("block/"+s+"_0")))
+                .override().predicate(new ResourceLocation( "ae2","fill_level"),0.2f)
+                .model(models().getExistingFile(modLoc("block/"+s+"_1"))).end()
+                .override().predicate(new ResourceLocation( "ae2","fill_level"),0.4f)
+                .model(models().getExistingFile(modLoc("block/"+s+"_2"))).end()
+                .override().predicate(new ResourceLocation( "ae2","fill_level"),0.6f)
+                .model(models().getExistingFile(modLoc("block/"+s+"_3"))).end()
+                .override().predicate(new ResourceLocation( "ae2","fill_level"),0.8f)
+                .model(models().getExistingFile(modLoc("block/"+s+"_4")))
+                .end()
+                ;
     }
 
     private void craftingModel(Block block, String name) {

@@ -1,0 +1,33 @@
+{
+  "$schema": "schema.json",
+  "includes": ["common/common.json", "common/player_inventory.json"],
+  "background": {
+    "texture": "guis/chest.png",
+    "srcRect": [0, 0, 176, 166]
+  },
+  "slots": {
+    "CONFIG": {
+      "left": 80,
+      "top": 37
+    }
+  },
+  "widgets": {
+    "editbox": {
+      "left": 9,
+      "top": 18,
+      "width": 180,
+      "height": 20
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "text": {
+        "translate": "gui.ae2extras.MonoCell"
+      },
+      "position": {
+        "left": 8,
+        "top": 6
+      }
+    }
+  }
+}

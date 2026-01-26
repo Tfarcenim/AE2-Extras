@@ -33,11 +33,15 @@ public class MonoStorageCellItem extends BasicStorageCell implements IMenuItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        if (!player.isCrouching()) {
             if (!level.isClientSide()) {
-                MenuOpener.open(ModMenuTypes.MONO_ITEM_CELL, player, MenuLocators.forHand(player, hand));
+                MenuOpener.open(ModMenuTypes.MONO_CELL, player, MenuLocators.forHand(player, hand));
             }
-        return new InteractionResultHolder<>(InteractionResult.sidedSuccess(level.isClientSide()),
-                player.getItemInHand(hand));
+            return new InteractionResultHolder<>(InteractionResult.sidedSuccess(level.isClientSide()),
+                    player.getItemInHand(hand));
+        } else {
+            return super.use(level, player, hand);
+        }
     }
 
     @Override

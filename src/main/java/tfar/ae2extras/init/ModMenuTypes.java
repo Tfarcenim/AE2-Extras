@@ -6,7 +6,7 @@ import tfar.ae2extras.MonoCellHost;
 import tfar.ae2extras.MonoCellMenu;
 
 public class ModMenuTypes {
-    public static final MenuType<MonoCellMenu> MONO_ITEM_CELL = MenuTypeBuilder
+    public static final MenuType<MonoCellMenu> MONO_CELL = MenuTypeBuilder
             .create(MonoCellMenu::new, MonoCellHost.class)
             .build("mono_item_cell");
 }

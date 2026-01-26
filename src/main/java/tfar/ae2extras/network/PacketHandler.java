@@ -1,7 +1,6 @@
 package tfar.ae2extras.network;
 
 
-import mezz.jei.common.platform.Services;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
