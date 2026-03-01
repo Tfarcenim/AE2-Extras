@@ -27,7 +27,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ae2:tools/portable_item_cell_1m"
+        "recipe": "ae2extras:tools/portable_item_cell_16m"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -41,7 +41,7 @@
   ],
   "rewards": {
     "recipes": [
-      "ae2:tools/portable_item_cell_1m"
+      "ae2extras:tools/portable_item_cell_16m"
     ]
   },
   "sends_telemetry_event": false

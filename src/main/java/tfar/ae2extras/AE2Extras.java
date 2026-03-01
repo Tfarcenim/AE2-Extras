@@ -2,8 +2,6 @@ package tfar.ae2extras;
 
 import appeng.api.stacks.AEKeyType;
 import appeng.api.upgrades.Upgrades;
-import appeng.blockentity.ClientTickingBlockEntity;
-import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import appeng.blockentity.networking.EnergyCellBlockEntity;
 import appeng.core.definitions.AEBlockEntities;
@@ -16,7 +14,6 @@ import appeng.menu.me.common.MEStorageMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -29,6 +26,7 @@ import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
 import tfar.ae2extras.init.ModMenuTypes;
 import tfar.ae2extras.init.client.AE2ExtrasClient;
+import tfar.ae2extras.item.PortableCellExItem;
 import tfar.ae2extras.network.PacketHandler;
 
 import java.util.List;
@@ -65,11 +63,11 @@ public class AE2Extras {
     }
 
     public static PortableCellItem makePortableItemCell(StorageTier tier) {
-        return new PortableCellItem(AEKeyType.items(), 63 - tier.index() * 9, MEStorageMenu.PORTABLE_ITEM_CELL_TYPE, tier, noStack(), 0xDDDDDD);
+        return new PortableCellExItem(AEKeyType.items(), 63 - tier.index() * 9, MEStorageMenu.PORTABLE_ITEM_CELL_TYPE, tier, noStack(), 0xDDDDDD);
     }
 
     public static PortableCellItem makePortableFluidCell(StorageTier tier) {
-        return new PortableCellItem(AEKeyType.fluids(), 18, MEStorageMenu.PORTABLE_FLUID_CELL_TYPE, tier, noStack(), 0xFF6D36);
+        return new PortableCellExItem(AEKeyType.fluids(), 18, MEStorageMenu.PORTABLE_FLUID_CELL_TYPE, tier, noStack(), 0xFF6D36);
     }
 
 

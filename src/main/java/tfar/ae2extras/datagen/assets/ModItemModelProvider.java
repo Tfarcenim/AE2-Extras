@@ -42,7 +42,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         storageCell(AE2ExtrasItems.MONO_ITEM_CELL_1M, "item/mono_item_storage_cell_1m");
         storageCell(AE2ExtrasItems.MONO_ITEM_CELL_4M, "item/mono_item_storage_cell_4m");
         storageCell(AE2ExtrasItems.MONO_ITEM_CELL_16M, "item/mono_item_storage_cell_16m");
-        storageCell(AE2ExtrasItems.MONO_ITEM_CELL_64M, "item/mono_item_storage_cell_16m");
+        storageCell(AE2ExtrasItems.MONO_ITEM_CELL_64M, "item/mono_item_storage_cell_64m");
 
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_1K, "item/mono_fluid_storage_cell_1k");
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_4K, "item/mono_fluid_storage_cell_4k");
@@ -52,7 +52,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_1M, "item/mono_fluid_storage_cell_1m");
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_4M, "item/mono_fluid_storage_cell_4m");
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_16M, "item/mono_fluid_storage_cell_16m");
-        storageCell(AE2ExtrasItems.MONO_FLUID_CELL_64M, "item/mono_fluid_storage_cell_16m");
+        storageCell(AE2ExtrasItems.MONO_FLUID_CELL_64M, "item/mono_fluid_storage_cell_64m");
 
         portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,"ae2:item/portable_cell_side_1k");
         portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M,"ae2:item/portable_cell_side_4k");
