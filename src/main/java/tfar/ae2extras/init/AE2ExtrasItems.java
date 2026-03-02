@@ -25,6 +25,7 @@ public class AE2ExtrasItems {
     public static StorageComponentItem CELL_COMPONENT_4M = new StorageComponentItem(props, 4 * AE2Extras.KILO);
     public static StorageComponentItem CELL_COMPONENT_16M = new StorageComponentItem(props, 16 * AE2Extras.KILO);
     public static StorageComponentItem CELL_COMPONENT_64M = new StorageComponentItem(props, 64 * AE2Extras.KILO);
+
     public static Item FLUID_CELL_1M = AE2Extras.createFluidCell(CELL_COMPONENT_1M, 3, 1);
     public static Item FLUID_CELL_4M = AE2Extras.createFluidCell(CELL_COMPONENT_4M, 3.5f, 4);
     public static Item FLUID_CELL_16M = AE2Extras.createFluidCell(CELL_COMPONENT_16M, 4, 16);

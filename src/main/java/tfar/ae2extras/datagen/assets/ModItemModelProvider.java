@@ -10,6 +10,8 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.AE2ExtrasItems;
+import tfar.ae2extras.integration.Integration;
+import tfar.ae2extras.integration.mekanism.MItems;
 
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -28,6 +30,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         storageCell(AE2ExtrasItems.FLUID_CELL_4M, "item/fluid_storage_cell_4m");
         storageCell(AE2ExtrasItems.FLUID_CELL_16M, "item/fluid_storage_cell_16m");
         storageCell(AE2ExtrasItems.FLUID_CELL_64M, "item/fluid_storage_cell_64m");
+
+        storageCell(MItems.CHEMICAL_CELL_1M, "item/fluid_storage_cell_1m");
+        storageCell(MItems.CHEMICAL_CELL_4M, "item/fluid_storage_cell_4m");
+        storageCell(MItems.CHEMICAL_CELL_16M, "item/fluid_storage_cell_16m");
+        storageCell(MItems.CHEMICAL_CELL_64M, "item/fluid_storage_cell_64m");
 
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_16M, "item/cell_component_16m");
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_1M, "item/cell_component_1m");
@@ -63,6 +70,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,"ae2:item/portable_cell_side_4k");
         portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,"ae2:item/portable_cell_side_16k");
         portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,"ae2:item/portable_cell_side_64k");
+
+        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M,"ae2:item/portable_cell_side_1k");
+        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M,"ae2:item/portable_cell_side_4k");
+        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M,"ae2:item/portable_cell_side_16k");
+        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M,"ae2:item/portable_cell_side_64k");
     }
 
     private void storageCell(Item item, String background) {
@@ -83,6 +95,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         portableCell(item,ae2("item/portable_cell_fluid_housing"),background);
     }
 
+    private void portableChemicalCell(Item item,String background) {
+        portableCell(item,ae2("item/portable_cell_item_housing"),background);
+    }
+
     private void portableCell(Item item,ResourceLocation housing, String background) {
         String id = BuiltInRegistries.ITEM.getKey(item).getPath();
         singleTexture(
@@ -96,6 +112,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     protected ResourceLocation ae2(String path) {
         return new ResourceLocation("ae2",path);
+    }
+
+    protected ResourceLocation appmek(String path) {
+        return new ResourceLocation(Integration.appmek.name(),path);
     }
 
     private ItemModelBuilder flatSingleLayer(Item item, String texture) {

@@ -13,7 +13,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_item_cell_housing": {
+    "has_housing": {
       "conditions": {
         "items": [
           {
@@ -34,7 +34,7 @@
   },
   "requirements": [
     [
-      "has_item_cell_housing",
+      "has_housing",
       "has_energy_cell",
       "has_the_recipe"
     ]

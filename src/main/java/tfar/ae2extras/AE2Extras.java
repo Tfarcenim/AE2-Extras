@@ -26,6 +26,8 @@ import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
 import tfar.ae2extras.init.ModMenuTypes;
 import tfar.ae2extras.init.client.AE2ExtrasClient;
+import tfar.ae2extras.integration.mekanism.AE2ExtrasMekCompat;
+import tfar.ae2extras.integration.Integration;
 import tfar.ae2extras.item.PortableCellExItem;
 import tfar.ae2extras.network.PacketHandler;
 
@@ -71,7 +73,7 @@ public class AE2Extras {
     }
 
 
-    static Item.Properties noStack() {
+    public static Item.Properties noStack() {
         return new Item.Properties().stacksTo(1);
     }
 
@@ -220,6 +222,10 @@ public class AE2Extras {
 
         event.register(Registries.CREATIVE_MODE_TAB, AE2Extras.id("tab"), () -> AE2ExtrasItems.TAB);
         event.register(Registries.MENU, AE2Extras.id("mono_cell"), () -> ModMenuTypes.MONO_CELL);
+
+        if (Integration.appmek.loaded) {
+            AE2ExtrasMekCompat.register(event);
+        }
     }
 
     public static ResourceLocation id(String id) {

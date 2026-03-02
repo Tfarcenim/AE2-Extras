@@ -13,6 +13,8 @@ import tfar.ae2extras.MonoCellScreen;
 import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
 import tfar.ae2extras.init.ModMenuTypes;
+import tfar.ae2extras.integration.Integration;
+import tfar.ae2extras.integration.mekanism.AE2ExtrasMekCompatClient;
 
 public class AE2ExtrasClient {
 
@@ -46,5 +48,9 @@ public class AE2ExtrasClient {
                 AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M);
 
         event.register(BasicStorageCell::getColor, AE2ExtrasItems.monoCells().toArray(Item[]::new));
+
+        if (Integration.appmek.loaded) {
+            AE2ExtrasMekCompatClient.colors(event);
+        }
     }
 }

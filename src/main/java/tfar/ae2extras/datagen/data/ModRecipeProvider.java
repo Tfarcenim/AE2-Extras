@@ -1,21 +1,33 @@
 package tfar.ae2extras.datagen.data;
 
 import appeng.api.stacks.AEKeyType;
-import appeng.core.AppEng;
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
 import appeng.core.definitions.ItemDefinition;
 import appeng.datagen.providers.tags.ConventionTags;
+import appeng.items.materials.StorageComponentItem;
 import appeng.items.tools.powered.PortableCellItem;
+import me.ramidzkh.mekae2.AMItems;
+import me.ramidzkh.mekae2.AppliedMekanistics;
+import me.ramidzkh.mekae2.ae2.MekanismKeyType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
+import tfar.ae2extras.integration.mekanism.MItems;
 
+import java.util.Locale;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -64,10 +76,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_denser_energy_cell", has(ModBlocks.DENSER_ENERGY_CELL))
                 .save(consumer, AE2Extras.id("network/blocks/energy_densest_energy_cell"));
 
-        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_1M, AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M);
-        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_4M, AE2ExtrasItems.ITEM_CELL_4M, AE2ExtrasItems.FLUID_CELL_4M);
-        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_16M, AE2ExtrasItems.ITEM_CELL_16M, AE2ExtrasItems.FLUID_CELL_16M);
-        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_64M, AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M);
+        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_1M, AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M, MItems.CHEMICAL_CELL_1M);
+        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_4M, AE2ExtrasItems.ITEM_CELL_4M, AE2ExtrasItems.FLUID_CELL_4M, MItems.CHEMICAL_CELL_4M);
+        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_16M, AE2ExtrasItems.ITEM_CELL_16M, AE2ExtrasItems.FLUID_CELL_16M, MItems.CHEMICAL_CELL_16M);
+        cells(consumer, AE2ExtrasItems.CELL_COMPONENT_64M, AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M, MItems.CHEMICAL_CELL_64M);
 
         cellComponent(consumer,AEItems.CELL_COMPONENT_256K.asItem(),ConventionTags.REDSTONE,AEItems.CALCULATION_PROCESSOR.asItem(), AE2ExtrasItems.CELL_COMPONENT_1M);
         cellComponent(consumer, AE2ExtrasItems.CELL_COMPONENT_1M,ConventionTags.REDSTONE,AEItems.CALCULATION_PROCESSOR.asItem(), AE2ExtrasItems.CELL_COMPONENT_4M);
@@ -103,14 +115,22 @@ public class ModRecipeProvider extends RecipeProvider {
         portableCell(consumer,AE2ExtrasItems.PORTABLE_FLUID_CELL_4M);
         portableCell(consumer,AE2ExtrasItems.PORTABLE_FLUID_CELL_16M);
         portableCell(consumer,AE2ExtrasItems.PORTABLE_FLUID_CELL_64M);
+
+
+        portableCell(consumer,MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M);
+        portableCell(consumer,MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M);
+        portableCell(consumer,MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M);
+        portableCell(consumer,MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M);
     }
 
     private void portableCell(Consumer<FinishedRecipe> consumer, PortableCellItem cell) {
-        ItemDefinition<?> housing;
+        Item housing;
         if (cell.getKeyType() == AEKeyType.items()) {
-            housing = AEItems.ITEM_CELL_HOUSING;
+            housing = AEItems.ITEM_CELL_HOUSING.asItem();
         } else if (cell.getKeyType() == AEKeyType.fluids()) {
-            housing = AEItems.FLUID_CELL_HOUSING;
+            housing = AEItems.FLUID_CELL_HOUSING.asItem();
+        } else if (cell.getKeyType() == MekanismKeyType.TYPE) {
+            housing = AMItems.CHEMICAL_CELL_HOUSING.get();
         } else {
             throw new RuntimeException("No housing known for " + cell.asItem());
         }
@@ -121,7 +141,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(component)
                 .requires(AEBlocks.ENERGY_CELL)
                 .requires(housing)
-                .unlockedBy("has_" + housing.id().getPath(), has(housing))
+                .unlockedBy("has_housing", has(housing))
                 .unlockedBy("has_energy_cell", has(AEBlocks.ENERGY_CELL))
                 .save(consumer, cell.getRecipeId());
     }
@@ -145,9 +165,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(consumer);
     }
 
-    protected void cells(Consumer<FinishedRecipe> consumer, Item cellComponent,Item itemCell,Item fluidCell) {
+    protected void cells(Consumer<FinishedRecipe> consumer, Item cellComponent,Item itemCell,Item fluidCell,Item chemicalCell) {
         itemCell(consumer,cellComponent,itemCell);
         fluidCell(consumer,cellComponent,fluidCell);
+        chemicalCell(consumer,cellComponent,chemicalCell);
     }
 
 
@@ -169,6 +190,27 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(cellComponent), has(cellComponent))
                 .save(consumer, AE2Extras.id("network/cells/"+s+"_storage"));
     }
+
+    protected void chemicalCell(Consumer<FinishedRecipe> consumer, Item cellComponent,Item result) {
+        String s= BuiltInRegistries.ITEM.getKey(result).getPath();
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE,result)
+                .pattern("aba")
+                .pattern("bcb")
+                .pattern("ddd")
+                .define('a', AEBlocks.QUARTZ_GLASS)
+                .define('b', ConventionTags.REDSTONE)
+                .define('c', cellComponent)
+                .define('d',  INGOTS_OSMIUM)
+                .unlockedBy(getHasName(cellComponent), has(cellComponent))
+                .save(consumer, AE2Extras.id("network/cells/"+s));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE,result)
+                .requires(AMItems.CHEMICAL_CELL_HOUSING.get())
+                .requires(cellComponent)
+                .unlockedBy(getHasName(cellComponent), has(cellComponent))
+                .save(consumer, AE2Extras.id("network/cells/"+s+"_storage"));
+    }
+
+    public static final TagKey<Item> INGOTS_OSMIUM = TagKey.create(Registries.ITEM,AE2Extras.id("ingots/osmium"));
 
     protected void fluidCell(Consumer<FinishedRecipe> consumer, Item cellComponent,Item result){
         String s= BuiltInRegistries.ITEM.getKey(result).getPath();

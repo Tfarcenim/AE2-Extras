@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "ae2:item_cell_housing"
+              "appmek:chemical_cell_housing"
             ]
           }
         ]
@@ -27,7 +27,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ae2extras:tools/portable_item_cell_4m"
+        "recipe": "ae2extras:portable_chemical_storage_cell_64m"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -41,7 +41,7 @@
   ],
   "rewards": {
     "recipes": [
-      "ae2extras:tools/portable_item_cell_4m"
+      "ae2extras:portable_chemical_storage_cell_64m"
     ]
   },
   "sends_telemetry_event": false

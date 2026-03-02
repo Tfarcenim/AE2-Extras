@@ -76,7 +76,7 @@ minecraft {
             //property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             args '--mod', 'ae2extras', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0],
-                    '--existing-mod', 'ae2'
+                    '--existing-mod', 'ae2','--existing-mod', 'appmek'
             mods {
                 ae2extras {
                     source sourceSets.main
@@ -96,6 +96,12 @@ repositories {
     maven {
         name = "Modmaven"
         url = "https://modmaven.dev/"
+    }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
 }
 sourceSets {
@@ -118,6 +124,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+
+    implementation fg.deobf("curse.maven:applied-mekanistics-574300:7244744")
     // Real examples
     // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
