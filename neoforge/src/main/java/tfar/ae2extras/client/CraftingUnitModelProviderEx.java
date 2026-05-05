@@ -16,7 +16,7 @@ import java.util.function.Function;
 import static tfar.ae2extras.AE2ExtrasCraftingUnitType.*;
 
 /**
- * based on
+ * @see appeng.client.render.crafting.CraftingUnitModelProvider
  */
 public class CraftingUnitModelProviderEx extends AbstractCraftingUnitModelProvider<AE2ExtrasCraftingUnitType> {
 

@@ -23,4 +23,5 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
         return !FMLLoader.isProduction();
     }
+
 }

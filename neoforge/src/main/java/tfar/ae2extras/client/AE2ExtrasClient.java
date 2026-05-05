@@ -25,13 +25,12 @@ public class AE2ExtrasClient {
 
     public AE2ExtrasClient(IEventBus bus){
         bus.addListener(AE2ExtrasClient::client);
-        //InitAutoRotatingModelEx.init(bus);
         bus.addListener(AE2ExtrasClient::colors);
         bus.addListener(this::registerScreens);
     }
 
     public static void client(FMLClientSetupEvent t) {
-        InitBuiltInModelsEx.init();
+        BuiltInModelsEx.init();
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_1M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_16M, RenderType.cutout());
@@ -40,7 +39,6 @@ public class AE2ExtrasClient {
 
     void registerScreens(RegisterMenuScreensEvent event) {
         InitScreens.register(event,ModMenuTypes.MONO_CELL, MonoCellScreen::new,"/screens/mono_cell.json");
-
     }
 
     public static void colors(RegisterColorHandlersEvent.Item event) {

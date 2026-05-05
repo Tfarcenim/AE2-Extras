@@ -17,8 +17,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
+import tfar.ae2extras.client.AE2ExtrasStorageCellModels;
 import tfar.ae2extras.datagen.ModDatagen;
 import tfar.ae2extras.init.AE2ExtrasItems;
 import tfar.ae2extras.init.ModBlocks;
@@ -80,6 +82,7 @@ public class AE2ExtrasNeoforge {
         bus.addListener(ModDatagen::gather);
         bus.addListener(this::common);
         bus.addListener(this::network);
+        bus.addListener(this::addBlocks);
     }
 
     private void common(FMLCommonSetupEvent e) {
@@ -99,7 +102,16 @@ public class AE2ExtrasNeoforge {
         ModBlocks.DENSER_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
         ModBlocks.DENSEST_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
 
+        AE2ExtrasStorageCellModels.init();
+
         handleUpgrades();
+    }
+
+    void addBlocks(BlockEntityTypeAddBlocksEvent event) {
+        event.modify(AEBlockEntities.CRAFTING_STORAGE.get(),ModBlocks.CRAFTING_STORAGE_1M,ModBlocks.CRAFTING_STORAGE_4M,
+                ModBlocks.CRAFTING_STORAGE_16M,ModBlocks.CRAFTING_STORAGE_64M);
+
+        event.modify(AEBlockEntities.ENERGY_CELL.get(),ModBlocks.DENSER_ENERGY_CELL,ModBlocks.DENSEST_ENERGY_CELL);
     }
 
     void network(RegisterPayloadHandlersEvent event) {
