@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "a": {
+      "item": "ae2:quartz_glass"
+    },
+    "b": {
+      "tag": "c:dusts/redstone"
+    },
+    "c": {
+      "item": "ae2extras:cell_component_16m"
+    },
+    "d": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "pattern": [
+    "aba",
+    "bcb",
+    "ddd"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ae2extras:fluid_storage_cell_16m"
+  }
+}

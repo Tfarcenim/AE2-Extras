@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "ae2extras:item_storage_cell_16m"
+    },
+    {
+      "item": "ae2:calculation_processor"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "ae2extras:mono_item_cell_16m"
+  }
+}
