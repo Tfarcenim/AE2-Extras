@@ -47,15 +47,15 @@ public class ModLangProvider extends LanguageProvider {
         add(MItems.CHEMICAL_CELL_16M,  "16m ME Chemical Storage Cell");
         add(MItems.CHEMICAL_CELL_64M,  "64m ME Chemical Storage Cell");
 
-        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,  "1m Portable Item Storage Cell");
-        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M, "4m Portable Item Storage Cell");
-        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_16M,  "16m Portable Item Storage Cell");
-        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_64M,  "64m Portable Item Storage Cell");
+        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,  "1m Portable Item Cell");
+        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M, "4m Portable Item Cell");
+        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_16M,  "16m Portable Item Cell");
+        add(AE2ExtrasItems.PORTABLE_ITEM_CELL_64M,  "64m Portable Item Cell");
 
-        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,  "1m Portable Fluid Storage Cell");
-        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M, "4m Portable Fluid Storage Cell");
-        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,  "16m Portable Fluid Storage Cell");
-        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,  "64m Portable Fluid Storage Cell");
+        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,  "1m Portable Fluid Cell");
+        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M, "4m Portable Fluid Cell");
+        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,  "16m Portable Fluid Cell");
+        add(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,  "64m Portable Fluid Cell");
 
         add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M,  "1m Portable Chemical Cell");
         add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M, "4m Portable Chemical Cell");

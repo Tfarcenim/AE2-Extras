@@ -3,8 +3,10 @@ package tfar.ae2extras.client;
 import appeng.init.client.InitScreens;
 import appeng.items.storage.BasicStorageCell;
 import appeng.items.tools.powered.PortableCellItem;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -29,7 +31,7 @@ public class AE2ExtrasClient {
         bus.addListener(this::registerScreens);
     }
 
-    public static void client(FMLClientSetupEvent t) {
+    static void client(FMLClientSetupEvent t) {
         BuiltInModelsEx.init();
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_1M, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRAFTING_STORAGE_4M, RenderType.cutout());
@@ -41,22 +43,27 @@ public class AE2ExtrasClient {
         InitScreens.register(event,ModMenuTypes.MONO_CELL, MonoCellScreen::new,"/screens/mono_cell.json");
     }
 
-    public static void colors(RegisterColorHandlersEvent.Item event) {
-        event.register(PortableCellItem::getColor,
+    static void colors(RegisterColorHandlersEvent.Item event) {
+        if (true)return;
+        event.register(makeOpaque(PortableCellItem::getColor),
                 AE2ExtrasItems.PORTABLE_ITEM_CELL_1M, AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,
                 AE2ExtrasItems.PORTABLE_ITEM_CELL_4M, AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,
                 AE2ExtrasItems.PORTABLE_ITEM_CELL_16M, AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,
                 AE2ExtrasItems.PORTABLE_ITEM_CELL_64M, AE2ExtrasItems.PORTABLE_FLUID_CELL_64M);
 
-        event.register(BasicStorageCell::getColor, AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M,
+        event.register(makeOpaque(BasicStorageCell::getColor), AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M,
                 AE2ExtrasItems.ITEM_CELL_4M, AE2ExtrasItems.FLUID_CELL_4M,
                 AE2ExtrasItems.ITEM_CELL_16M, AE2ExtrasItems.FLUID_CELL_16M,
                 AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M);
 
-        event.register(BasicStorageCell::getColor, AE2ExtrasItems.monoCells().toArray(Item[]::new));
+        event.register(makeOpaque(BasicStorageCell::getColor), AE2ExtrasItems.monoCells().toArray(Item[]::new));
 
         if (Integration.appmek.loaded) {
             AE2ExtrasMekCompatClient.colors(event);
         }
+    }
+
+    public static ItemColor makeOpaque(ItemColor itemColor) {
+        return (stack, tintIndex) -> FastColor.ARGB32.opaque(itemColor.getColor(stack, tintIndex));
     }
 }
