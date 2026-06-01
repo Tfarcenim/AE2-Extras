@@ -1,18 +1,12 @@
 package tfar.ae2extras;
 
-import appeng.api.stacks.AEKeyType;
 import appeng.api.upgrades.Upgrades;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import appeng.blockentity.networking.EnergyCellBlockEntity;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.core.definitions.AEItems;
 import appeng.core.localization.GuiText;
-import appeng.items.storage.BasicStorageCell;
-import appeng.items.storage.StorageTier;
-import appeng.items.tools.powered.PortableCellItem;
-import appeng.menu.me.common.MEStorageMenu;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -22,58 +16,19 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import tfar.ae2extras.client.AE2ExtrasStorageCellModels;
 import tfar.ae2extras.datagen.ModDatagen;
+import tfar.ae2extras.init.AE2ExtrasBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
-import tfar.ae2extras.init.ModBlocks;
 import tfar.ae2extras.init.ModMenuTypes;
 import tfar.ae2extras.integration.mekanism.AE2ExtrasMekCompat;
 import tfar.ae2extras.integration.Integration;
-import tfar.ae2extras.item.PortableCellExItem;
 import tfar.ae2extras.network.PacketHandler;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AE2Extras.MOD_ID)
 public class AE2ExtrasNeoforge {
     // Directly reference a log4j logger.
-
-    public static final int KILO = 1024;
-    public static final int MEGA = KILO * KILO;
-
-
-    public static Item createItemCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(noStack(), idleDrain, KILO * megaBytes,
-                8 * KILO * megaBytes, 63, AEKeyType.items());
-    }
-
-    public static Item createMonoItemCell(StorageTier tier, Supplier<Item> cell) {
-        return new MonoStorageCellItem(noStack(), tier.idleDrain(), tier.bytes() / AE2ExtrasNeoforge.KILO,
-                1, 1, AEKeyType.items());
-    }
-
-    public static Item createFluidCell(Item cellComponent, float idleDrain, int megaBytes) {
-        return new BasicStorageCell(noStack(), idleDrain, KILO * megaBytes,
-                8 * KILO * megaBytes, 63, AEKeyType.fluids());
-    }
-
-    public static Item createMonoFluidCell(StorageTier tier, Supplier<Item> cell) {
-        return new MonoStorageCellItem(noStack(),  tier.idleDrain(), tier.bytes() / AE2ExtrasNeoforge.KILO,
-                1, 1, AEKeyType.fluids());
-    }
-
-    public static PortableCellItem makePortableItemCell(StorageTier tier) {
-        return new PortableCellExItem(AEKeyType.items(), 63 - tier.index() * 9, MEStorageMenu.PORTABLE_ITEM_CELL_TYPE, tier, noStack(), 0xDDDDDD);
-    }
-
-    public static PortableCellItem makePortableFluidCell(StorageTier tier) {
-        return new PortableCellExItem(AEKeyType.fluids(), 18, MEStorageMenu.PORTABLE_FLUID_CELL_TYPE, tier, noStack(), 0xFF6D36);
-    }
-
-
-    public static Item.Properties noStack() {
-        return new Item.Properties().stacksTo(1);
-    }
 
 
     public AE2ExtrasNeoforge(IEventBus bus) {
@@ -92,15 +47,15 @@ public class AE2ExtrasNeoforge {
         Class<EnergyCellBlockEntity> energyCellClass = EnergyCellBlockEntity.class;
         BlockEntityType<CraftingBlockEntity> craftingStorage = AEBlockEntities.CRAFTING_STORAGE.get();
 
-        ModBlocks.CRAFTING_STORAGE_1M.setBlockEntity(entityClass, craftingStorage, null, null);
-        ModBlocks.CRAFTING_STORAGE_4M.setBlockEntity(entityClass, craftingStorage, null, null);
-        ModBlocks.CRAFTING_STORAGE_16M.setBlockEntity(entityClass, craftingStorage, null, null);
-        ModBlocks.CRAFTING_STORAGE_64M.setBlockEntity(entityClass, craftingStorage, null, null);
+        AE2ExtrasBlocks.CRAFTING_STORAGE_1M.setBlockEntity(entityClass, craftingStorage, null, null);
+        AE2ExtrasBlocks.CRAFTING_STORAGE_4M.setBlockEntity(entityClass, craftingStorage, null, null);
+        AE2ExtrasBlocks.CRAFTING_STORAGE_16M.setBlockEntity(entityClass, craftingStorage, null, null);
+        AE2ExtrasBlocks.CRAFTING_STORAGE_64M.setBlockEntity(entityClass, craftingStorage, null, null);
 
         BlockEntityType<EnergyCellBlockEntity> energyCell = AEBlockEntities.ENERGY_CELL.get();
 
-        ModBlocks.DENSER_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
-        ModBlocks.DENSEST_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
+        AE2ExtrasBlocks.DENSER_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
+        AE2ExtrasBlocks.DENSEST_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
 
         AE2ExtrasStorageCellModels.init();
 
@@ -108,10 +63,10 @@ public class AE2ExtrasNeoforge {
     }
 
     void addBlocks(BlockEntityTypeAddBlocksEvent event) {
-        event.modify(AEBlockEntities.CRAFTING_STORAGE.get(),ModBlocks.CRAFTING_STORAGE_1M,ModBlocks.CRAFTING_STORAGE_4M,
-                ModBlocks.CRAFTING_STORAGE_16M,ModBlocks.CRAFTING_STORAGE_64M);
+        event.modify(AEBlockEntities.CRAFTING_STORAGE.get(), AE2ExtrasBlocks.CRAFTING_STORAGE_1M, AE2ExtrasBlocks.CRAFTING_STORAGE_4M,
+                AE2ExtrasBlocks.CRAFTING_STORAGE_16M, AE2ExtrasBlocks.CRAFTING_STORAGE_64M);
 
-        event.modify(AEBlockEntities.ENERGY_CELL.get(),ModBlocks.DENSER_ENERGY_CELL,ModBlocks.DENSEST_ENERGY_CELL);
+        event.modify(AEBlockEntities.ENERGY_CELL.get(), AE2ExtrasBlocks.DENSER_ENERGY_CELL, AE2ExtrasBlocks.DENSEST_ENERGY_CELL);
     }
 
     void network(RegisterPayloadHandlersEvent event) {
@@ -167,21 +122,21 @@ public class AE2ExtrasNeoforge {
     }
 
     private void blocks(final RegisterEvent event) {
-        event.register(Registries.BLOCK, AE2Extras.id("1m_crafting_storage"), () -> ModBlocks.CRAFTING_STORAGE_1M);
-        event.register(Registries.BLOCK, AE2Extras.id("4m_crafting_storage"), () -> ModBlocks.CRAFTING_STORAGE_4M);
-        event.register(Registries.BLOCK, AE2Extras.id("16m_crafting_storage"), () -> ModBlocks.CRAFTING_STORAGE_16M);
-        event.register(Registries.BLOCK, AE2Extras.id("64m_crafting_storage"), () -> ModBlocks.CRAFTING_STORAGE_64M);
+        event.register(Registries.BLOCK, AE2Extras.id("1m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_1M);
+        event.register(Registries.BLOCK, AE2Extras.id("4m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_4M);
+        event.register(Registries.BLOCK, AE2Extras.id("16m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_16M);
+        event.register(Registries.BLOCK, AE2Extras.id("64m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_64M);
 
-        event.register(Registries.BLOCK, AE2Extras.id("denser_energy_cell"), () -> ModBlocks.DENSER_ENERGY_CELL);
-        event.register(Registries.BLOCK, AE2Extras.id("densest_energy_cell"), () -> ModBlocks.DENSEST_ENERGY_CELL);
+        event.register(Registries.BLOCK, AE2Extras.id("denser_energy_cell"), () -> AE2ExtrasBlocks.DENSER_ENERGY_CELL);
+        event.register(Registries.BLOCK, AE2Extras.id("densest_energy_cell"), () -> AE2ExtrasBlocks.DENSEST_ENERGY_CELL);
 
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_1M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_1M);
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_4M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_4M);
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_16M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_16M);
-        event.register(Registries.ITEM, ModBlocks.CRAFTING_STORAGE_64M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_64M);
+        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_1M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_1M);
+        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_4M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_4M);
+        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_16M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_16M);
+        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_64M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_64M);
 
-        event.register(Registries.ITEM, ModBlocks.DENSER_ENERGY_CELL.getRegistryName(), () -> AE2ExtrasItems.DENSER_ENERGY_CELL);
-        event.register(Registries.ITEM, ModBlocks.DENSEST_ENERGY_CELL.getRegistryName(), () -> AE2ExtrasItems.DENSEST_ENERGY_CELL);
+        event.register(Registries.ITEM, AE2ExtrasBlocks.DENSER_ENERGY_CELL.getRegistryName(), () -> AE2ExtrasItems.DENSER_ENERGY_CELL);
+        event.register(Registries.ITEM, AE2ExtrasBlocks.DENSEST_ENERGY_CELL.getRegistryName(), () -> AE2ExtrasItems.DENSEST_ENERGY_CELL);
 
         event.register(Registries.ITEM, AE2Extras.id("cell_component_1m"), () -> AE2ExtrasItems.CELL_COMPONENT_1M);
         event.register(Registries.ITEM, AE2Extras.id("cell_component_4m"), () -> AE2ExtrasItems.CELL_COMPONENT_4M);

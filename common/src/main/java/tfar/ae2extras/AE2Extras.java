@@ -1,11 +1,8 @@
 package tfar.ae2extras;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tfar.ae2extras.platform.Services;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.Items;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
@@ -23,7 +20,7 @@ public class AE2Extras {
     public static void init() {
     }
 
-    public static ResourceLocation id(String id) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, id);
+    public static Identifier id(String id) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, id);
     }
 }

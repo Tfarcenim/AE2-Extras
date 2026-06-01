@@ -10,10 +10,6 @@ neoForge {
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
@@ -21,25 +17,21 @@ neoForge {
         }
         client {
             client()
-        }
-        client2 {
-            client()
-            programArguments.addAll '--username', 'Dev1'
-            gameDirectory = project.file('run2')
+            gameDirectory = this.mkdir(this.file("runs/client"))
         }
         data {
-            data()
-            // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-            // workingDirectory project.file('run-data')
-
+            clientData()
+            gameDirectory = this.mkdir(this.file("runs/data"))
+            // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            programArguments.addAll '--mod', project.mod_id, '--all',
-                    '--output', rootProject.project(":common").file('src/generated/resources/').getAbsolutePath(),
-                    '--existing', rootProject.project(":common").file('src/main/resources/').getAbsolutePath(),
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', rootProject.project(':common').file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', rootProject.project(':common').file('src/main/resources/').getAbsolutePath(),
                     '--existing-mod', 'ae2','--existing-mod', 'appmek'
         }
         server {
             server()
+            this.file("runs/server").createParentDirectories()
+            gameDirectory = this.mkdir(this.file("runs/server"))
         }
     }
     mods {
@@ -66,7 +58,7 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 
-    implementation("curse.maven:applied-mekanistics-574300:7096962")
+    compileOnly("curse.maven:applied-mekanistics-574300:7096962")
     // Real examples
     // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
@@ -85,10 +77,10 @@ dependencies {
     compileOnly "mekanism:Mekanism:${mekanism_version}:api"
 
     // If you want to test/use Mekanism & its modules during `runClient` invocation, use the following
-    runtimeOnly("mekanism:Mekanism:${mekanism_version}")// Mekanism
-    runtimeOnly("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
-    runtimeOnly("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
-    runtimeOnly("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
+   // runtimeOnly("mekanism:Mekanism:${mekanism_version}")// Mekanism
+   // runtimeOnly("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
+   // runtimeOnly("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+   // runtimeOnly("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

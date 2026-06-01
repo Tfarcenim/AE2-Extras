@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import org.codehaus.plexus.util.StringUtils;
 import tfar.ae2extras.AE2Extras;
-import tfar.ae2extras.init.ModBlocks;
+import tfar.ae2extras.init.AE2ExtrasBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
 import tfar.ae2extras.integration.mekanism.MItems;
 
@@ -25,10 +25,10 @@ public class ModLangProvider extends LanguageProvider {
         add(AE2ExtrasItems.CELL_COMPONENT_16M, "16m ME Storage Component");
         add(AE2ExtrasItems.CELL_COMPONENT_64M, "64m ME Storage Component");
 
-        add(ModBlocks.CRAFTING_STORAGE_1M, "1m Crafting Storage");
-        add(ModBlocks.CRAFTING_STORAGE_4M, "4m Crafting Storage");
-        add(ModBlocks.CRAFTING_STORAGE_16M, "16m Crafting Storage");
-        add(ModBlocks.CRAFTING_STORAGE_64M, "64m Crafting Storage");
+        add(AE2ExtrasBlocks.CRAFTING_STORAGE_1M, "1m Crafting Storage");
+        add(AE2ExtrasBlocks.CRAFTING_STORAGE_4M, "4m Crafting Storage");
+        add(AE2ExtrasBlocks.CRAFTING_STORAGE_16M, "16m Crafting Storage");
+        add(AE2ExtrasBlocks.CRAFTING_STORAGE_64M, "64m Crafting Storage");
 
         add("itemGroup.ae2extras", "AE2 Extras");
 

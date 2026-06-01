@@ -9,16 +9,16 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import tfar.ae2extras.AE2Extras;
-import tfar.ae2extras.AE2ExtrasNeoforge;
+import tfar.ae2extras.init.AE2ExtrasItems;
 
 public class AE2ExtrasMekCompat {
 
     public static Item createChemicalCell(StorageTier storageTier) {
-        return new ChemicalStorageCell(AE2ExtrasNeoforge.noStack(),storageTier);
+        return new ChemicalStorageCell(AE2ExtrasItems.noStack(),storageTier);
     }
 
     public static PortableCellItem createPortableChemicalCell(StorageTier storageTier) {
-        return new ChemicalPortableCellItem(18, AMMenus.PORTABLE_CHEMICAL_CELL_TYPE, storageTier, AE2ExtrasNeoforge.noStack(), 0);
+        return new ChemicalPortableCellItem(18, AMMenus.PORTABLE_CHEMICAL_CELL_TYPE, storageTier, AE2ExtrasItems.noStack(), 0);
     }
 
     public static void init() {

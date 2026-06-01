@@ -2,14 +2,12 @@ package tfar.ae2extras;
 
 import appeng.client.gui.implementations.UpgradeableScreen;
 import appeng.client.gui.style.ScreenStyle;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import org.lwjgl.glfw.GLFW;
 import tfar.ae2extras.network.C2SInputPacket;
 import tfar.ae2extras.network.PacketHandler;
 
@@ -33,7 +31,7 @@ public class MonoCellScreen extends UpgradeableScreen<MonoCellMenu> {
         this.editBox.setMaxLength(50);
         this.editBox.setResponder(this::onNameChanged);
 
-        this.addWidget(this.editBox);
+        this.addRenderableWidget(this.editBox);
         this.setInitialFocus(this.editBox);
 
         this.widgets.add("editbox",editBox);
@@ -53,33 +51,18 @@ public class MonoCellScreen extends UpgradeableScreen<MonoCellMenu> {
     }
 
     @Override
-    public void resize(Minecraft pMinecraft, int pWidth, int pHeight) {
-      //  String s = this.editBox.getValue();
-        this.init(pMinecraft, pWidth, pHeight);
-      //  this.editBox.setValue(s);
+    public void resize(int width, int height) {
+        //  String s = this.editBox.getValue();
+        this.init(width, height);
+        //  this.editBox.setValue(s);
     }
 
-    /**
-     * Called when a keyboard key is pressed within the GUI element.
-     * <p>
-     * @return {@code true} if the event is consumed, {@code false} otherwise.
-     * @param pKeyCode the key code of the pressed key.
-     * @param pScanCode the scan code of the pressed key.
-     * @param pModifiers the keyboard modifiers.
-     */
     @Override
-    public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
-        if (pKeyCode == GLFW.GLFW_KEY_ESCAPE) {
-            this.minecraft.player.closeContainer();
+    public boolean keyPressed(KeyEvent event) {
+        if (event.isEscape()) {
+            minecraft.player.closeContainer();
         }
-
-        return this.editBox.keyPressed(pKeyCode, pScanCode, pModifiers) || this.editBox.canConsumeInput() || super.keyPressed(pKeyCode, pScanCode, pModifiers);
-    }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-        super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        this.editBox.render(guiGraphics, mouseX, mouseY, partialTicks);
+        return editBox.keyPressed(event) || editBox.canConsumeInput() || super.keyPressed(event);
     }
 
     private void onNameChanged(String str) {

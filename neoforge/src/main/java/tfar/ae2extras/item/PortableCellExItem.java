@@ -3,7 +3,7 @@ package tfar.ae2extras.item;
 import appeng.api.stacks.AEKeyType;
 import appeng.items.storage.StorageTier;
 import appeng.items.tools.powered.PortableCellItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.MenuType;
 import tfar.ae2extras.AE2Extras;
 
@@ -15,7 +15,7 @@ public class PortableCellExItem extends PortableCellItem {
     }
 
     @Override
-    public ResourceLocation getRecipeId() {
+    public Identifier getRecipeId() {
         return AE2Extras.id("tools/" + Objects.requireNonNull(getRegistryName()).getPath());
     }
 }

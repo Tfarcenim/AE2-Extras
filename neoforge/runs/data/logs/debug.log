@@ -1,0 +1,88 @@
+[01Jun2026 16:43:35.420] [main/INFO] [net.neoforged.fml.startup.Entrypoint/]: JVM Uptime at startup: 347ms
+[01Jun2026 16:43:35.439] [main/INFO] [net.neoforged.fml.loading.ProgramArgs/]: Duplicate entries for existing-mod Unindexable
+[01Jun2026 16:43:35.440] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Starting FancyModLoader version 11.0.5 (CLIENT in DEV)
+[01Jun2026 16:43:35.440] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Game directory: C:\Users\Tfar\Documents\MinecraftModdev\forgemods\AE2-Extras\neoforge\runs\data
+[01Jun2026 16:43:35.521] [main/INFO] [net.neoforged.fml.loading.EarlyServiceDiscovery/]: Found 2 early service jars (out of 110) in 43ms
+[01Jun2026 16:43:35.522] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Loading FML Early Services:
+[01Jun2026 16:43:35.523] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]:  - C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/11.0.5/b2edeab4008c91772d61f8f98a5253a09a4e890d/earlydisplay-11.0.5.jar
+[01Jun2026 16:43:35.524] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]:  - C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/11.0.5/3477e70d79fe8cd06962749f24e64f01edda3bb3/loader-11.0.5.jar
+[01Jun2026 16:43:35.532] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Not loading early display in headless mode.
+[01Jun2026 16:43:35.587] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.GameLocator/]: Detected a joined NeoForge and Minecraft configuration. Applying filtering...
+[01Jun2026 16:43:35.750] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.InDevFolderLocator/CORE]: Got mod coordinates ae2extras%%C:\\Users\\Tfar\\Documents\\MinecraftModdev\\forgemods\\AE2-Extras\\neoforge\\build\\classes\\java\\main;ae2extras%%C:\\Users\\Tfar\\Documents\\MinecraftModdev\\forgemods\\AE2-Extras\\neoforge\\build\\resources\\main from env
+[01Jun2026 16:43:36.018] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[01Jun2026 16:43:36.022] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		AE2Extras 0 (ae2extras)
+		Applied Energistics 2 26.1.9-alpha (ae2)
+		GuideME 26.1.11-beta (guideme)
+		Just Enough Items 29.6.2.31 (jei)
+		Minecraft 26.1.2 (minecraft)
+		NeoForge 26.1.2.7-beta (neoforge)
+[01Jun2026 16:43:36.035] [main/ERROR] [net.neoforged.fml.loading.ModSorter/LOADING]: Missing or unsupported mandatory dependencies:
+	Mod ID: 'neoforge', Requested by: 'ae2', Expected range: '[26.1.2.21-beta,)', Actual version: '26.1.2.7-beta'
+	Mod ID: 'neoforge', Requested by: 'jei', Expected range: '[26.1.2.53-beta,)', Actual version: '26.1.2.7-beta'
+	Mod ID: 'neoforge', Requested by: 'guideme', Expected range: '[26.1.2.10-beta,26.2-)', Actual version: '26.1.2.7-beta'
+[01Jun2026 16:43:36.098] [main/ERROR] [net.neoforged.fml.loading.FMLLoader/]: Mod ae2 requires neoforge 26.1.2.21-beta or above
+Currently, neoforge is 26.1.2.7-beta
+
+[01Jun2026 16:43:36.100] [main/ERROR] [net.neoforged.fml.loading.FMLLoader/]: Mod jei requires neoforge 26.1.2.53-beta or above
+Currently, neoforge is 26.1.2.7-beta
+
+[01Jun2026 16:43:36.100] [main/ERROR] [net.neoforged.fml.loading.FMLLoader/]: Mod guideme requires neoforge 26.1.2.10-beta or above, and below 26.2-
+Currently, neoforge is 26.1.2.7-beta
+
+[01Jun2026 16:43:36.101] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Closing FML Loader 11dee337
+[01Jun2026 16:43:36.102] [main/ERROR] [net.neoforged.fml.loading.modscan.BackgroundScanHandler/SCAN]: An error occurred scanning file composite(filtered(jar(C:/Users/Tfar/Documents/MinecraftModdev/forgemods/AE2-Extras/neoforge/build/moddev/artifacts/minecraft-patched-26.1.2.7-beta.jar)), filtered(jar(C:/Users/Tfar/Documents/MinecraftModdev/forgemods/AE2-Extras/neoforge/build/moddev/artifacts/minecraft-patched-26.1.2.7-beta.jar)))
+java.util.concurrent.CancellationException
+	at java.base/java.util.concurrent.CompletableFuture.cancel(CompletableFuture.java:2552) ~[?:?]
+	at net.neoforged.fml.loading.moddiscovery.ModFile.close(ModFile.java:246) ~[loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.loading.FMLLoader.close(FMLLoader.java:239) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:415) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.startup.DataClient.main(DataClient.java:14) [loader-11.0.5.jar:11.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?]
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?]
+[01Jun2026 16:43:36.118] [main/ERROR] [net.neoforged.fml.loading.modscan.BackgroundScanHandler/SCAN]: An error occurred scanning file composite(filtered(jar(C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.7-beta/92eba0d120a46052268aa4aa38bbbcffde3992cd/neoforge-26.1.2.7-beta-universal.jar)))
+java.util.concurrent.CancellationException
+	at java.base/java.util.concurrent.CompletableFuture.cancel(CompletableFuture.java:2552) ~[?:?]
+	at net.neoforged.fml.loading.moddiscovery.ModFile.close(ModFile.java:246) ~[loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.loading.FMLLoader.close(FMLLoader.java:239) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:415) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.startup.DataClient.main(DataClient.java:14) [loader-11.0.5.jar:11.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?]
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?]
+[01Jun2026 16:43:36.123] [main/ERROR] [net.neoforged.fml.loading.modscan.BackgroundScanHandler/SCAN]: An error occurred scanning file composite(filtered(jar(C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.7-beta/92eba0d120a46052268aa4aa38bbbcffde3992cd/neoforge-26.1.2.7-beta-universal.jar))) > jar(C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/26.1.2.7-beta/92eba0d120a46052268aa4aa38bbbcffde3992cd/neoforge-26.1.2.7-beta-universal.jar > mixinextras-neoforge-0.5.3.jar)
+java.util.concurrent.CancellationException
+	at java.base/java.util.concurrent.CompletableFuture.cancel(CompletableFuture.java:2552) ~[?:?]
+	at net.neoforged.fml.loading.moddiscovery.ModFile.close(ModFile.java:246) ~[loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.loading.FMLLoader.close(FMLLoader.java:245) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:415) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65) [loader-11.0.5.jar:11.0]
+	at net.neoforged.fml.startup.DataClient.main(DataClient.java:14) [loader-11.0.5.jar:11.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?]
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?]
+[01Jun2026 16:43:36.130] [main/INFO] [net.neoforged.fml.ModLoader/]: Clearing ModLoader
+[01Jun2026 16:43:36.136] [main/ERROR] [net.neoforged.fml.startup.Entrypoint/]: Failed to start FML: net.neoforged.fml.ModLoadingException: Loading errors encountered:
+	- Mod ae2 requires neoforge 26.1.2.21-beta or above
+	  Currently, neoforge is 26.1.2.7-beta
+	  
+	- Mod jei requires neoforge 26.1.2.53-beta or above
+	  Currently, neoforge is 26.1.2.7-beta
+	  
+	- Mod guideme requires neoforge 26.1.2.10-beta or above, and below 26.2-
+	  Currently, neoforge is 26.1.2.7-beta
+	  
+
+	at net.neoforged.fml.loading.FMLLoader.create(FMLLoader.java:356)
+	at net.neoforged.fml.startup.Entrypoint.startup(Entrypoint.java:65)
+	at net.neoforged.fml.startup.DataClient.main(DataClient.java:14)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at net.neoforged.devlaunch.Main.main(Main.java:57)
+

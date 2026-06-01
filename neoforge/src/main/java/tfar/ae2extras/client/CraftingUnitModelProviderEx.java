@@ -3,22 +3,21 @@ package tfar.ae2extras.client;
 import appeng.client.render.crafting.AbstractCraftingUnitModelProvider;
 import appeng.client.render.crafting.LightBakedModel;
 import appeng.core.AppEng;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.resources.model.ModelDebugName;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.resources.model.sprite.MaterialBaker;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.AE2ExtrasCraftingUnitType;
 
 import java.util.*;
-import java.util.function.Function;
 
 import static tfar.ae2extras.AE2ExtrasCraftingUnitType.*;
 
 /**
  * @see appeng.client.render.crafting.CraftingUnitModelProvider
  */
-public class CraftingUnitModelProviderEx extends AbstractCraftingUnitModelProvider<AE2ExtrasCraftingUnitType> {
+public class CraftingUnitModelProviderEx extends AbstractCraftingUnitModelProvider<AE2ExtrasCraftingUnitType> implements ModelDebugName {
 
     private static final List<Material> MATERIALS = new ArrayList<>();
 
@@ -36,11 +35,6 @@ public class CraftingUnitModelProviderEx extends AbstractCraftingUnitModelProvid
         super(type);
     }
 
-    @Override
-    public List<Material> getMaterials() {
-        return Collections.unmodifiableList(MATERIALS);
-    }
-
     static final Map<AE2ExtrasCraftingUnitType, Material> map = new HashMap<>();
 
     static {
@@ -50,35 +44,39 @@ public class CraftingUnitModelProviderEx extends AbstractCraftingUnitModelProvid
         map.put(STORAGE_64M, STORAGE_64M_LIGHT);
     }
 
-    public TextureAtlasSprite getLightMaterial(Function<Material, TextureAtlasSprite> textureGetter) {
-        return textureGetter.apply(map.get(type));
+    public Material.Baked getLightMaterial(MaterialBaker textureGetter) {
+        return textureGetter.get(map.get(type),this);
         //     throw new IllegalArgumentException(
         //         "Crafting unit type " + this.type + " does not use a light texture.");
     }
 
     @Override
-    public BakedModel getBakedModel(Function<Material, TextureAtlasSprite> spriteGetter) {
-        TextureAtlasSprite ringCorner = spriteGetter.apply(RING_CORNER);
-        TextureAtlasSprite ringSideHor = spriteGetter.apply(RING_SIDE_HOR);
-        TextureAtlasSprite ringSideVer = spriteGetter.apply(RING_SIDE_VER);
+    public BlockStateModel bake(MaterialBaker materialBaker) {
+
+        Material.Baked ringCorner = materialBaker.get(RING_CORNER, this);
+        Material.Baked ringSideHor = materialBaker.get(RING_SIDE_HOR, this);
+        Material.Baked ringSideVer = materialBaker.get(RING_SIDE_VER, this);
 
         //case /*ACCELERATOR,*/ STORAGE_1M, STORAGE_4M, STORAGE_16M, STORAGE_64M ->
         return new LightBakedModel(
-                ringCorner, ringSideHor, ringSideVer, spriteGetter.apply(LIGHT_BASE),
-                this.getLightMaterial(spriteGetter));
+                ringCorner, ringSideHor, ringSideVer, materialBaker.get(LIGHT_BASE,this),
+                this.getLightMaterial(materialBaker));
     }
 
     private static Material ae2Texture(String name) {
-        Material mat = new Material(TextureAtlas.LOCATION_BLOCKS,
-                AppEng.makeId("block/crafting/" + name));
+        Material mat = new Material(AppEng.makeId("block/crafting/" + name));
         MATERIALS.add(mat);
         return mat;
     }
 
     private static Material texture(String name) {
-        Material mat = new Material(TextureAtlas.LOCATION_BLOCKS,
-                AE2Extras.id("block/crafting/" + name));
+        Material mat = new Material(AE2Extras.id("block/crafting/" + name));
         MATERIALS.add(mat);
         return mat;
+    }
+
+    @Override
+    public String debugName() {
+        return getClass().toString();
     }
 }
