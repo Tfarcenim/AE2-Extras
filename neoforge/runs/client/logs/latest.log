@@ -1,8 +1,0 @@
-[01Jun2026 16:43:22.147] [main/INFO] [net.neoforged.fml.startup.Entrypoint/]: JVM Uptime at startup: 430ms
-[01Jun2026 16:43:22.168] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Starting FancyModLoader version 11.0.5 (CLIENT in DEV)
-[01Jun2026 16:43:22.169] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Game directory: C:\Users\Tfar\Documents\MinecraftModdev\forgemods\AE2-Extras\neoforge\runs\client
-[01Jun2026 16:43:22.258] [main/INFO] [net.neoforged.fml.loading.EarlyServiceDiscovery/]: Found 2 early service jars (out of 110) in 50ms
-[01Jun2026 16:43:22.259] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]: Loading FML Early Services:
-[01Jun2026 16:43:22.261] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]:  - C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/11.0.5/b2edeab4008c91772d61f8f98a5253a09a4e890d/earlydisplay-11.0.5.jar
-[01Jun2026 16:43:22.262] [main/INFO] [net.neoforged.fml.loading.FMLLoader/]:  - C:/Users/Tfar/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/11.0.5/3477e70d79fe8cd06962749f24e64f01edda3bb3/loader-11.0.5.jar
-[01Jun2026 16:43:22.274] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
