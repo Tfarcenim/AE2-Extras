@@ -64,21 +64,21 @@ public class AE2ExtrasItemModelProvider extends ModelSubProvider {
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_16M,  AE2Extras.id("item/mono_fluid_storage_cell_16m"));
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_64M,  AE2Extras.id("item/mono_fluid_storage_cell_64m"));
 
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,"item/portable_cell_side_1k");
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M,"item/portable_cell_side_4k");
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_16M,"item/portable_cell_side_16k");
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_64M,"item/portable_cell_side_64k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,"1k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M,"4k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_16M,"16k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_64M,"64k");
 
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,"item/portable_cell_side_1k");
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,"item/portable_cell_side_4k");
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,"item/portable_cell_side_16k");
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,"item/portable_cell_side_64k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,"1k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,"4k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,"16k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,"64k");
 
         if (Integration.appmek.loaded) {
-            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M, "item/portable_cell_side_1k");
-            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M, "item/portable_cell_side_4k");
-            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M, "item/portable_cell_side_16k");
-            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M, "item/portable_cell_side_64k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M, "1k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M, "4k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M, "16k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M, "64k");
         }
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_16M, "item/cell_component_16m");
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_1M, "item/cell_component_1m");

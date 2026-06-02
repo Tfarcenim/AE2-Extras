@@ -1,7 +1,7 @@
 {
   "variants": {
     "formed=false": {
-      "model": "ae2:block/crafting/1m_storage"
+      "model": "ae2extras:block/crafting/1m_storage"
     },
     "formed=true": {
       "type": "ae2extras:crafting_cube",

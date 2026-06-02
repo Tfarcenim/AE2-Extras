@@ -8,7 +8,6 @@ import appeng.core.definitions.AEItems;
 import appeng.core.localization.GuiText;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -16,7 +15,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
-import tfar.ae2extras.client.AE2ExtrasStorageCellModels;
 import tfar.ae2extras.datagen.ModDatagen;
 import tfar.ae2extras.init.AE2ExtrasBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
@@ -59,7 +57,6 @@ public class AE2ExtrasNeoforge {
         AE2ExtrasBlocks.DENSER_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
         AE2ExtrasBlocks.DENSEST_ENERGY_CELL.setBlockEntity(energyCellClass, energyCell, null, null);
 
-        AE2ExtrasStorageCellModels.init();
 
         handleUpgrades();
     }

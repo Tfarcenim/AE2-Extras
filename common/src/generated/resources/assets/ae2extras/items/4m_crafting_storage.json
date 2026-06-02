@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ae2:block/crafting/4m_storage"
+    "model": "ae2extras:block/crafting/4m_storage"
   }
 }

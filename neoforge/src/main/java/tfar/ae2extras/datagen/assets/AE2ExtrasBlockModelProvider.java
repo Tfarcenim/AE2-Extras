@@ -4,6 +4,7 @@ import appeng.block.crafting.AbstractCraftingUnitBlock;
 import appeng.block.crafting.CraftingUnitBlock;
 import appeng.block.networking.EnergyCellBlock;
 import appeng.client.item.EnergyFillLevelProperty;
+import appeng.core.AppEng;
 import appeng.core.definitions.BlockDefinition;
 import appeng.datagen.providers.models.ModelSubProvider;
 import appeng.datagen.providers.models.PartModelOutput;
@@ -15,16 +16,15 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
+import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.AE2ExtrasCraftingUnitType;
 import tfar.ae2extras.client.BuiltInModelsEx;
 import tfar.ae2extras.init.AE2ExtrasBlocks;
 
 import java.util.ArrayList;
-
-import static appeng.core.AppEng.makeId;
-import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 public class AE2ExtrasBlockModelProvider extends ModelSubProvider {
     public AE2ExtrasBlockModelProvider(BlockModelGenerators blockModels, ItemModelGenerators itemModels, PartModelOutput partModels) {
@@ -46,7 +46,7 @@ public class AE2ExtrasBlockModelProvider extends ModelSubProvider {
     private void craftingModel(CraftingUnitBlock block, String name) {
         AE2ExtrasCraftingUnitType type = (AE2ExtrasCraftingUnitType) block.type;
         var unformedModel = ModelTemplates.CUBE_ALL.create(
-                makeId("block/crafting/" + name), TextureMapping.cube(makeMaterial("block/crafting/" + name)),
+                AE2Extras.id("block/crafting/" + name), TextureMapping.cube(new Material(AE2Extras.id("block/crafting/" + name))),
                 modelOutput);
         var formedModel = customBlockStateModel(new BuiltInModelsEx.Unbaked(type));
 
@@ -56,7 +56,7 @@ public class AE2ExtrasBlockModelProvider extends ModelSubProvider {
                                 .with(
                                         PropertyDispatch.initial(AbstractCraftingUnitBlock.FORMED)
                                                 .select(false,
-                                                        plainVariant(unformedModel))
+                                                        BlockModelGenerators.plainVariant(unformedModel))
                                                 .select(true,
                                                         formedModel)));
 
@@ -74,7 +74,7 @@ public class AE2ExtrasBlockModelProvider extends ModelSubProvider {
             var textures = TextureMapping.cube(getBlockTexture(block, "_" + i));
             var model = ModelTemplates.CUBE_ALL.createWithSuffix(block, "_" + i, textures, modelOutput);
             models.add(model);
-            energyLevelDispatch.select(i, plainVariant(model));
+            energyLevelDispatch.select(i, BlockModelGenerators.plainVariant(model));
         }
         blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(energyLevelDispatch));
 
