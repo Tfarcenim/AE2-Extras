@@ -26,9 +26,10 @@ public class MonoCellScreen extends UpgradeableScreen<MonoCellMenu> {
         //values are set in screens
         this.editBox = new EditBox(this.font, 0, 0, 0, 0, Component.translatable("container.repair"));
         this.editBox.setCanLoseFocus(false);
-        this.editBox.setTextColor(0x404040);
+        this.editBox.setTextColor(0xff404040);
         this.editBox.setBordered(false);
         this.editBox.setMaxLength(50);
+        editBox.setTextShadow(false);
         this.editBox.setResponder(this::onNameChanged);
 
         this.addRenderableWidget(this.editBox);

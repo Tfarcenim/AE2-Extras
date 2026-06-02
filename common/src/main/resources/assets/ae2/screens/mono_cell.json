@@ -2,8 +2,8 @@
   "$schema": "schema.json",
   "includes": ["common/common.json", "common/player_inventory.json"],
   "background": {
-    "texture": "guis/chest.png",
-    "srcRect": [0, 0, 176, 166]
+    "texture": "guis/me_chest.png",
+    "srcRect": [0, 0, 176, 168]
   },
   "slots": {
     "CONFIG": {

@@ -1,6 +1,5 @@
 package tfar.ae2extras.network;
 
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -10,9 +9,6 @@ import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.MonoCellMenu;
 
 public record C2SInputPacket(String name) implements C2SModPacket{
-    public C2SInputPacket(FriendlyByteBuf buffer) {
-        this(buffer.readUtf());
-    }
 
     public static final Type<C2SInputPacket> TYPE = new Type<>(AE2Extras.id("c2sinputpacket"));
     public static final StreamCodec<RegistryFriendlyByteBuf,C2SInputPacket> STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8,C2SInputPacket::name,C2SInputPacket::new);
@@ -26,6 +22,6 @@ public record C2SInputPacket(String name) implements C2SModPacket{
 
     @Override
     public Type<? extends CustomPacketPayload> type() {
-        return null;
+        return TYPE;
     }
 }
