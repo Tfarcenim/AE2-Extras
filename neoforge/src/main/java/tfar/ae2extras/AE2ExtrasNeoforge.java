@@ -6,6 +6,8 @@ import appeng.blockentity.networking.EnergyCellBlockEntity;
 import appeng.core.definitions.AEBlockEntities;
 import appeng.core.definitions.AEItems;
 import appeng.core.localization.GuiText;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -122,73 +124,17 @@ public class AE2ExtrasNeoforge {
     }
 
     private void blocks(final RegisterEvent event) {
-        event.register(Registries.BLOCK, AE2Extras.id("1m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_1M);
-        event.register(Registries.BLOCK, AE2Extras.id("4m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_4M);
-        event.register(Registries.BLOCK, AE2Extras.id("16m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_16M);
-        event.register(Registries.BLOCK, AE2Extras.id("64m_crafting_storage"), () -> AE2ExtrasBlocks.CRAFTING_STORAGE_64M);
 
-        event.register(Registries.BLOCK, AE2Extras.id("denser_energy_cell"), () -> AE2ExtrasBlocks.DENSER_ENERGY_CELL);
-        event.register(Registries.BLOCK, AE2Extras.id("densest_energy_cell"), () -> AE2ExtrasBlocks.DENSEST_ENERGY_CELL);
+        if (event.getRegistry() == BuiltInRegistries.BLOCK) {
+            AE2ExtrasBlocks.init();
+            AE2ExtrasItems.init();
 
-        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_1M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_1M);
-        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_4M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_4M);
-        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_16M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_16M);
-        event.register(Registries.ITEM, AE2ExtrasBlocks.CRAFTING_STORAGE_64M.getRegistryName(), () -> AE2ExtrasItems.CRAFTING_STORAGE_64M);
 
-        event.register(Registries.ITEM, AE2ExtrasBlocks.DENSER_ENERGY_CELL.getRegistryName(), () -> AE2ExtrasItems.DENSER_ENERGY_CELL);
-        event.register(Registries.ITEM, AE2ExtrasBlocks.DENSEST_ENERGY_CELL.getRegistryName(), () -> AE2ExtrasItems.DENSEST_ENERGY_CELL);
-
-        event.register(Registries.ITEM, AE2Extras.id("cell_component_1m"), () -> AE2ExtrasItems.CELL_COMPONENT_1M);
-        event.register(Registries.ITEM, AE2Extras.id("cell_component_4m"), () -> AE2ExtrasItems.CELL_COMPONENT_4M);
-        event.register(Registries.ITEM, AE2Extras.id("cell_component_16m"), () -> AE2ExtrasItems.CELL_COMPONENT_16M);
-        event.register(Registries.ITEM, AE2Extras.id("cell_component_64m"), () -> AE2ExtrasItems.CELL_COMPONENT_64M);
-
-        event.register(Registries.ITEM, AE2Extras.id("item_storage_cell_1m"), () -> AE2ExtrasItems.ITEM_CELL_1M);
-        event.register(Registries.ITEM, AE2Extras.id("item_storage_cell_4m"), () -> AE2ExtrasItems.ITEM_CELL_4M);
-        event.register(Registries.ITEM, AE2Extras.id("item_storage_cell_16m"), () -> AE2ExtrasItems.ITEM_CELL_16M);
-        event.register(Registries.ITEM, AE2Extras.id("item_storage_cell_64m"), () -> AE2ExtrasItems.ITEM_CELL_64M);
-
-        event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_1m"), () -> AE2ExtrasItems.FLUID_CELL_1M);
-        event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_4m"), () -> AE2ExtrasItems.FLUID_CELL_4M);
-        event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_16m"), () -> AE2ExtrasItems.FLUID_CELL_16M);
-        event.register(Registries.ITEM, AE2Extras.id("fluid_storage_cell_64m"), () -> AE2ExtrasItems.FLUID_CELL_64M);
-
-        event.register(Registries.ITEM, AE2Extras.id("portable_item_cell_1m"), () -> AE2ExtrasItems.PORTABLE_ITEM_CELL_1M);
-        event.register(Registries.ITEM, AE2Extras.id("portable_item_cell_4m"), () -> AE2ExtrasItems.PORTABLE_ITEM_CELL_4M);
-        event.register(Registries.ITEM, AE2Extras.id("portable_item_cell_16m"), () -> AE2ExtrasItems.PORTABLE_ITEM_CELL_16M);
-        event.register(Registries.ITEM, AE2Extras.id("portable_item_cell_64m"), () -> AE2ExtrasItems.PORTABLE_ITEM_CELL_64M);
-
-        event.register(Registries.ITEM, AE2Extras.id("portable_fluid_cell_1m"), () -> AE2ExtrasItems.PORTABLE_FLUID_CELL_1M);
-        event.register(Registries.ITEM, AE2Extras.id("portable_fluid_cell_4m"), () -> AE2ExtrasItems.PORTABLE_FLUID_CELL_4M);
-        event.register(Registries.ITEM, AE2Extras.id("portable_fluid_cell_16m"), () -> AE2ExtrasItems.PORTABLE_FLUID_CELL_16M);
-        event.register(Registries.ITEM, AE2Extras.id("portable_fluid_cell_64m"), () -> AE2ExtrasItems.PORTABLE_FLUID_CELL_64M);
-
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_1k"), () -> AE2ExtrasItems.MONO_ITEM_CELL_1K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_4k"), () -> AE2ExtrasItems.MONO_ITEM_CELL_4K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_16k"), () -> AE2ExtrasItems.MONO_ITEM_CELL_16K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_64k"), () -> AE2ExtrasItems.MONO_ITEM_CELL_64K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_256k"), () -> AE2ExtrasItems.MONO_ITEM_CELL_256K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_1m"), () -> AE2ExtrasItems.MONO_ITEM_CELL_1M);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_4m"), () -> AE2ExtrasItems.MONO_ITEM_CELL_4M);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_16m"), () -> AE2ExtrasItems.MONO_ITEM_CELL_16M);
-        event.register(Registries.ITEM, AE2Extras.id("mono_item_cell_64m"), () -> AE2ExtrasItems.MONO_ITEM_CELL_64M);
-
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_1k"), () -> AE2ExtrasItems.MONO_FLUID_CELL_1K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_4k"), () -> AE2ExtrasItems.MONO_FLUID_CELL_4K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_16k"), () -> AE2ExtrasItems.MONO_FLUID_CELL_16K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_64k"), () -> AE2ExtrasItems.MONO_FLUID_CELL_64K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_256k"), () -> AE2ExtrasItems.MONO_FLUID_CELL_256K);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_1m"), () -> AE2ExtrasItems.MONO_FLUID_CELL_1M);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_4m"), () -> AE2ExtrasItems.MONO_FLUID_CELL_4M);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_16m"), () -> AE2ExtrasItems.MONO_FLUID_CELL_16M);
-        event.register(Registries.ITEM, AE2Extras.id("mono_fluid_cell_64m"), () -> AE2ExtrasItems.MONO_FLUID_CELL_64M);
-
-        event.register(Registries.CREATIVE_MODE_TAB, AE2Extras.id("tab"), () -> AE2ExtrasItems.TAB);
-        event.register(Registries.MENU, AE2Extras.id("mono_cell"), () -> ModMenuTypes.MONO_CELL);
-
-        if (Integration.appmek.loaded) {
-            AE2ExtrasMekCompat.register(event);
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, AE2Extras.id("tab"), AE2ExtrasItems.TAB);
+            ModMenuTypes.init();
+            if (Integration.appmek.loaded) {
+                AE2ExtrasMekCompat.register(event);
+            }
         }
     }
-
 }

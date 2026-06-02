@@ -1,10 +1,14 @@
 package tfar.ae2extras.client;
 
 import appeng.client.InitScreens;
+import appeng.client.api.model.parts.RegisterPartModelsEvent;
+import appeng.client.render.crafting.CraftingCubeModel;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.InitializeClientRegistriesEvent;
+import net.neoforged.neoforge.client.event.RegisterBlockStateModels;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import tfar.ae2extras.AE2Extras;
@@ -20,6 +24,8 @@ public class AE2ExtrasClient {
         bus.addListener(AE2ExtrasClient::client);
         bus.addListener(AE2ExtrasClient::colors);
         bus.addListener(this::registerScreens);
+        bus.addListener(this::initCustomClientRegistries);
+        bus.addListener(this::registerBlockStateModels);
     }
 
     static void client(FMLClientSetupEvent t) {
@@ -28,6 +34,14 @@ public class AE2ExtrasClient {
 
     void registerScreens(RegisterMenuScreensEvent event) {
         InitScreens.register(event,ModMenuTypes.MONO_CELL, MonoCellScreen::new,"/screens/mono_cell.json");
+    }
+
+    private void initCustomClientRegistries(InitializeClientRegistriesEvent event) {
+
+    }
+    
+    private void registerBlockStateModels(RegisterBlockStateModels event) {
+        event.registerModel(BuiltInModelsEx.Unbaked.ID, BuiltInModelsEx.Unbaked.MAP_CODEC);
     }
 
     static void colors(RegisterColorHandlersEvent.ItemTintSources event) {

@@ -8,6 +8,7 @@ import org.codehaus.plexus.util.StringUtils;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.AE2ExtrasBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
+import tfar.ae2extras.integration.Integration;
 import tfar.ae2extras.integration.mekanism.MItems;
 
 import java.util.function.Supplier;
@@ -42,10 +43,12 @@ public class ModLangProvider extends LanguageProvider {
         add(AE2ExtrasItems.FLUID_CELL_16M,  "16m ME Fluid Storage Cell");
         add(AE2ExtrasItems.FLUID_CELL_64M,  "64m ME Fluid Storage Cell");
 
-        add(MItems.CHEMICAL_CELL_1M,  "1m ME Chemical Storage Cell");
-        add(MItems.CHEMICAL_CELL_4M, "4m ME Chemical Storage Cell");
-        add(MItems.CHEMICAL_CELL_16M,  "16m ME Chemical Storage Cell");
-        add(MItems.CHEMICAL_CELL_64M,  "64m ME Chemical Storage Cell");
+        if (Integration.appmek.loaded) {
+            add(MItems.CHEMICAL_CELL_1M, "1m ME Chemical Storage Cell");
+            add(MItems.CHEMICAL_CELL_4M, "4m ME Chemical Storage Cell");
+            add(MItems.CHEMICAL_CELL_16M, "16m ME Chemical Storage Cell");
+            add(MItems.CHEMICAL_CELL_64M, "64m ME Chemical Storage Cell");
+        }
 
         add(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,  "1m Portable Item Cell");
         add(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M, "4m Portable Item Cell");
@@ -57,11 +60,13 @@ public class ModLangProvider extends LanguageProvider {
         add(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,  "16m Portable Fluid Cell");
         add(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,  "64m Portable Fluid Cell");
 
-        add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M,  "1m Portable Chemical Cell");
-        add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M, "4m Portable Chemical Cell");
-        add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M,  "16m Portable Chemical Cell");
-        add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M,  "64m Portable Chemical Cell");
-
+        if (Integration.appmek.loaded) {
+            add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M, "1m Portable Chemical Cell");
+            add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M, "4m Portable Chemical Cell");
+            add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M, "16m Portable Chemical Cell");
+            add(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M, "64m Portable Chemical Cell");
+        }
+        
         add(AE2ExtrasItems.MONO_ITEM_CELL_1K,"1k ME Mono Item Storage Cell");
         add(AE2ExtrasItems.MONO_ITEM_CELL_4K,"4k ME Mono Item Storage Cell");
         add(AE2ExtrasItems.MONO_ITEM_CELL_16K,"16k ME Mono Item Storage Cell");

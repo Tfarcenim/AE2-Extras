@@ -1,10 +1,11 @@
 {
   "variants": {
     "formed=false": {
-      "model": "ae2extras:block/crafting/16m_storage"
+      "model": "ae2:block/crafting/16m_storage"
     },
     "formed=true": {
-      "model": "ae2extras:block/crafting/16m_storage_formed"
+      "type": "ae2extras:crafting_cube",
+      "unit_type": "storage_16m"
     }
   }
 }

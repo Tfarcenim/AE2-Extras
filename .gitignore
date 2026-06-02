@@ -23,6 +23,7 @@ build
 # other
 eclipse
 run
+runs
 classes
 
 # Files from Forge MDK

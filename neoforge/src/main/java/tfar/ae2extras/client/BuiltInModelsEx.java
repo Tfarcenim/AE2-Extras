@@ -1,33 +1,22 @@
 package tfar.ae2extras.client;
 
-import appeng.block.crafting.CraftingUnitType;
-import appeng.block.crafting.ICraftingUnitType;
-import appeng.client.render.crafting.CraftingCubeModel;
-import appeng.client.render.crafting.CraftingUnitModelProvider;
 import appeng.core.AppEng;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.client.resources.model.ModelBaker;
-import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.model.block.CustomUnbakedBlockStateModel;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.AE2ExtrasCraftingUnitType;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
 public class BuiltInModelsEx {
-
-    private static final Map<Identifier, UnbakedModel> builtInModels = new HashMap<>();
 
     public static void init() {
     }
 
     public record Unbaked(AE2ExtrasCraftingUnitType type) implements CustomUnbakedBlockStateModel {
-        public static final Identifier ID = AppEng.makeId("crafting_cube");
+        public static final Identifier ID = AE2Extras.id("crafting_cube");
         public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder
                 .mapCodec(instance -> instance.group(
                         AE2ExtrasCraftingUnitType.CODEC.fieldOf("unit_type").forGetter(Unbaked::type))
@@ -49,11 +38,4 @@ public class BuiltInModelsEx {
         }
     }
 
-    private static <T extends UnbakedModel> void addBuiltInModel(String id, Supplier<T> modelFactory) {
-        builtInModels.put(AE2Extras.id(id), modelFactory.get());
-    }
-
-    public static UnbakedModel getBuiltInModel(Identifier id) {
-        return builtInModels.get(id);
-    }
 }

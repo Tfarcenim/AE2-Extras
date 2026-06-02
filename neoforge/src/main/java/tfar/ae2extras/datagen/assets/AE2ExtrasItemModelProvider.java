@@ -2,6 +2,7 @@ package tfar.ae2extras.datagen.assets;
 
 import appeng.client.item.PortableCellColorTintSource;
 import appeng.client.item.StorageCellStateTintSource;
+import appeng.core.AppEng;
 import appeng.core.definitions.ItemDefinition;
 import appeng.datagen.providers.models.ModelSubProvider;
 import appeng.datagen.providers.models.PartModelOutput;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.AE2ExtrasItems;
+import tfar.ae2extras.integration.Integration;
 import tfar.ae2extras.integration.mekanism.MItems;
 
 public class AE2ExtrasItemModelProvider extends ModelSubProvider {
@@ -35,11 +37,12 @@ public class AE2ExtrasItemModelProvider extends ModelSubProvider {
         storageCell(AE2ExtrasItems.FLUID_CELL_16M, AE2Extras.id("item/fluid_storage_cell_16m"));
         storageCell(AE2ExtrasItems.FLUID_CELL_64M, AE2Extras.id("item/fluid_storage_cell_64m"));
 
-        storageCell(MItems.CHEMICAL_CELL_1M, AE2Extras.id("item/fluid_storage_cell_1m"));
-        storageCell(MItems.CHEMICAL_CELL_4M, AE2Extras.id("item/fluid_storage_cell_4m"));
-        storageCell(MItems.CHEMICAL_CELL_16M, AE2Extras.id("item/fluid_storage_cell_16m"));
-        storageCell(MItems.CHEMICAL_CELL_64M, AE2Extras.id("item/fluid_storage_cell_64m"));
-
+        if (Integration.appmek.loaded) {
+            storageCell(MItems.CHEMICAL_CELL_1M, AE2Extras.id("item/fluid_storage_cell_1m"));
+            storageCell(MItems.CHEMICAL_CELL_4M, AE2Extras.id("item/fluid_storage_cell_4m"));
+            storageCell(MItems.CHEMICAL_CELL_16M, AE2Extras.id("item/fluid_storage_cell_16m"));
+            storageCell(MItems.CHEMICAL_CELL_64M, AE2Extras.id("item/fluid_storage_cell_64m"));
+        }
 
         storageCell(AE2ExtrasItems.MONO_ITEM_CELL_1K,  AE2Extras.id("item/mono_item_storage_cell_1k"));
         storageCell(AE2ExtrasItems.MONO_ITEM_CELL_4K,  AE2Extras.id("item/mono_item_storage_cell_4k"));
@@ -61,21 +64,22 @@ public class AE2ExtrasItemModelProvider extends ModelSubProvider {
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_16M,  AE2Extras.id("item/mono_fluid_storage_cell_16m"));
         storageCell(AE2ExtrasItems.MONO_FLUID_CELL_64M,  AE2Extras.id("item/mono_fluid_storage_cell_64m"));
 
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,"ae2:item/portable_cell_side_1k");
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M,"ae2:item/portable_cell_side_4k");
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_16M,"ae2:item/portable_cell_side_16k");
-        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_64M,"ae2:item/portable_cell_side_64k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_1M,"item/portable_cell_side_1k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_4M,"item/portable_cell_side_4k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_16M,"item/portable_cell_side_16k");
+        portableItemCell(AE2ExtrasItems.PORTABLE_ITEM_CELL_64M,"item/portable_cell_side_64k");
 
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,"ae2:item/portable_cell_side_1k");
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,"ae2:item/portable_cell_side_4k");
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,"ae2:item/portable_cell_side_16k");
-        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,"ae2:item/portable_cell_side_64k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_1M,"item/portable_cell_side_1k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_4M,"item/portable_cell_side_4k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M,"item/portable_cell_side_16k");
+        portableFluidCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M,"item/portable_cell_side_64k");
 
-        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M,"ae2:item/portable_cell_side_1k");
-        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M,"ae2:item/portable_cell_side_4k");
-        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M,"ae2:item/portable_cell_side_16k");
-        portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M,"ae2:item/portable_cell_side_64k");
-
+        if (Integration.appmek.loaded) {
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M, "item/portable_cell_side_1k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M, "item/portable_cell_side_4k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M, "item/portable_cell_side_16k");
+            portableChemicalCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M, "item/portable_cell_side_64k");
+        }
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_16M, "item/cell_component_16m");
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_1M, "item/cell_component_1m");
         flatSingleLayer(AE2ExtrasItems.CELL_COMPONENT_4M, "item/cell_component_4m");
@@ -102,7 +106,7 @@ public class AE2ExtrasItemModelProvider extends ModelSubProvider {
     }
 
     protected static Identifier ae2(String id) {
-        return id.contains(":") ? Identifier.parse(id) : AE2Extras.id(id);
+        return AppEng.makeId(id);
     }
 
 

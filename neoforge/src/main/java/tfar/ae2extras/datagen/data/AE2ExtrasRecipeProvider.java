@@ -4,6 +4,7 @@ import appeng.api.stacks.AEKeyType;
 import appeng.core.ConventionTags;
 import appeng.core.definitions.AEBlocks;
 import appeng.core.definitions.AEItems;
+import appeng.items.materials.StorageComponentItem;
 import appeng.items.tools.powered.PortableCellItem;
 import me.ramidzkh.mekae2.AMItems;
 import me.ramidzkh.mekae2.ae2.MekanismKeyType;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.Item;
 import tfar.ae2extras.AE2Extras;
 import tfar.ae2extras.init.AE2ExtrasBlocks;
 import tfar.ae2extras.init.AE2ExtrasItems;
+import tfar.ae2extras.integration.Integration;
 import tfar.ae2extras.integration.mekanism.MItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -69,10 +71,10 @@ public class AE2ExtrasRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_denser_energy_cell", has(AE2ExtrasBlocks.DENSER_ENERGY_CELL))
                 .save(output);
 
-        cells(AE2ExtrasItems.CELL_COMPONENT_1M, AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M, MItems.CHEMICAL_CELL_1M);
-        cells(AE2ExtrasItems.CELL_COMPONENT_4M, AE2ExtrasItems.ITEM_CELL_4M, AE2ExtrasItems.FLUID_CELL_4M, MItems.CHEMICAL_CELL_4M);
-        cells(AE2ExtrasItems.CELL_COMPONENT_16M, AE2ExtrasItems.ITEM_CELL_16M, AE2ExtrasItems.FLUID_CELL_16M, MItems.CHEMICAL_CELL_16M);
-        cells(AE2ExtrasItems.CELL_COMPONENT_64M, AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M, MItems.CHEMICAL_CELL_64M);
+        cells(AE2ExtrasItems.CELL_COMPONENT_1M, AE2ExtrasItems.ITEM_CELL_1M, AE2ExtrasItems.FLUID_CELL_1M);
+        cells(AE2ExtrasItems.CELL_COMPONENT_4M, AE2ExtrasItems.ITEM_CELL_4M, AE2ExtrasItems.FLUID_CELL_4M);
+        cells(AE2ExtrasItems.CELL_COMPONENT_16M, AE2ExtrasItems.ITEM_CELL_16M, AE2ExtrasItems.FLUID_CELL_16M);
+        cells(AE2ExtrasItems.CELL_COMPONENT_64M, AE2ExtrasItems.ITEM_CELL_64M, AE2ExtrasItems.FLUID_CELL_64M);
 
         cellComponent(AEItems.CELL_COMPONENT_256K.asItem(),ConventionTags.REDSTONE,AEItems.CALCULATION_PROCESSOR.asItem(), AE2ExtrasItems.CELL_COMPONENT_1M);
         cellComponent(AE2ExtrasItems.CELL_COMPONENT_1M,ConventionTags.REDSTONE,AEItems.CALCULATION_PROCESSOR.asItem(), AE2ExtrasItems.CELL_COMPONENT_4M);
@@ -109,11 +111,12 @@ public class AE2ExtrasRecipeProvider extends RecipeProvider {
         portableCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_16M);
         portableCell(AE2ExtrasItems.PORTABLE_FLUID_CELL_64M);
 
-
-        portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M);
-        portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M);
-        portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M);
-        portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M);
+        if (Integration.appmek.loaded) {
+            portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_1M);
+            portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_4M);
+            portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_16M);
+            portableCell(MItems.PORTABLE_CHEMICAL_STORAGE_CELL_64M);
+        }
     }
 
     private void portableCell(PortableCellItem cell) {
@@ -158,14 +161,19 @@ public class AE2ExtrasRecipeProvider extends RecipeProvider {
                 .save(output);
     }
 
-    protected void cells(Item cellComponent, Item itemCell, Item fluidCell, Item chemicalCell) {
+    protected void cells(StorageComponentItem cellComponent, Item itemCell, Item fluidCell, Item chemicalCell) {
         itemCell(cellComponent,itemCell);
         fluidCell(cellComponent,fluidCell);
         chemicalCell(cellComponent,chemicalCell);
     }
 
+    protected void cells(StorageComponentItem cellComponent, Item itemCell, Item fluidCell) {
+        itemCell(cellComponent,itemCell);
+        fluidCell(cellComponent,fluidCell);
+    }
 
-        protected void itemCell(Item cellComponent,Item result) {
+
+        protected void itemCell(StorageComponentItem cellComponent,Item result) {
         String s= BuiltInRegistries.ITEM.getKey(result).getPath();
         shaped(RecipeCategory.REDSTONE,result)
                 .pattern("aba")
@@ -181,7 +189,7 @@ public class AE2ExtrasRecipeProvider extends RecipeProvider {
                 .requires(AEItems.ITEM_CELL_HOUSING)
                 .requires(cellComponent)
                 .unlockedBy(getHasName(cellComponent), has(cellComponent))
-                .save(output);
+                .save(output,"ae2extras:network/cells/"+s+"_storage");
     }
 
     protected void chemicalCell(Item cellComponent,Item result) {
@@ -200,7 +208,7 @@ public class AE2ExtrasRecipeProvider extends RecipeProvider {
                 .requires(AMItems.CHEMICAL_CELL_HOUSING.get())
                 .requires(cellComponent)
                 .unlockedBy(getHasName(cellComponent), has(cellComponent))
-                .save(output);
+                .save(output,"ae2extras:network/cells/"+s+"_storage");
     }
 
     public static final TagKey<Item> INGOTS_OSMIUM = TagKey.create(Registries.ITEM, AE2Extras.id("ingots/osmium"));
@@ -221,7 +229,7 @@ public class AE2ExtrasRecipeProvider extends RecipeProvider {
                 .requires(AEItems.FLUID_CELL_HOUSING)
                 .requires(cellComponent)
                 .unlockedBy(getHasName(cellComponent), has(cellComponent))
-                .save(output);
+                .save(output,"ae2extras:network/cells/"+s+"_storage");
     }
 
     public static class Runner extends RecipeProvider.Runner {
